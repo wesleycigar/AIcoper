@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>我的合作社 · AIcoper</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="phone">
+
+  <!-- 顶部栏 -->
+  <div class="topbar">
+    <a href="index.html" class="back">‹</a>
+    <span class="logo">我的合作社</span>
+  </div>
+
+  <div class="scroll">
+
+    <!-- hero -->
+    <div class="hero">
+      <div class="small" style="opacity:.9;margin-bottom:6px">我已邀请 <b>12</b> 位好友，共同把合作社规模做大</div>
+      <div class="stat">
+        <span class="num">14%</span>
+        <span class="lbl">当前我的专属采购折扣</span>
+      </div>
+      <div class="small" style="text-align:center;opacity:.85;margin-top:8px">折扣 = 基础合作社折扣 + 我的贡献加成</div>
+    </div>
+
+    <!-- 折扣阶梯 -->
+    <div class="card">
+      <h3>折扣阶梯 · 全体共享</h3>
+      <p class="small muted" style="margin:0 0 12px">用的人越多，规模采购成本越低，省下的钱按比例返还给<b>每一位</b>成员。这是真实的集采机制，不是口号。</p>
+
+      <div class="small" style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span>当前合作社规模</span>
+        <b>2,185 / 5,000 人</b>
+      </div>
+      <div class="bar" style="margin-bottom:14px"><i style="width:43.7%"></i></div>
+
+      <div class="li">
+        <div class="ic">🟢</div>
+        <div class="meta"><b>满 1,000 人 → 10% 折扣</b><div>已达成</div></div>
+        <div class="right"><span class="badge green">已解锁</span></div>
+      </div>
+      <div class="li">
+        <div class="ic">🟢</div>
+        <div class="meta"><b>满 2,000 人 → 12% 折扣</b><div>已达成（当前生效档位）</div></div>
+        <div class="right"><span class="badge green">已解锁</span></div>
+      </div>
+      <div class="li">
+        <div class="ic">⏳</div>
+        <div class="meta"><b>满 5,000 人 → 15% 折扣</b><div>还差 2,815 人解锁</div></div>
+        <div class="right"><span class="badge amber">进行中</span></div>
+      </div>
+      <div class="li">
+        <div class="ic">🔒</div>
+        <div class="meta"><b>满 10,000 人 → 18% 折扣</b><div>下一里程碑</div></div>
+        <div class="right"><span class="badge gray">未解锁</span></div>
+      </div>
+    </div>
+
+    <!-- 邀请好友 -->
+    <div class="card">
+      <h3>邀请好友，一起把价格打下来</h3>
+      <button class="btn accent" onclick="document.getElementById('invite').style.display='block'">生成我的邀请卡</button>
+      <div id="invite" class="small muted center" style="display:none;margin-top:10px;padding:10px;background:var(--bg);border-radius:10px">
+        🎴 邀请卡已生成：邀请码 <b>COOP-7K2D9</b>（演示）
+      </div>
+
+      <div class="divider"></div>
+
+      <p class="section-title">返利怎么来？（两级封顶）</p>
+      <div class="li">
+        <div class="ic">①</div>
+        <div class="meta"><b>一级好友</b><div>你直接邀请的人，他真实使用 AI 产生的服务费，你分成 <b>8%</b></div></div>
+      </div>
+      <div class="li">
+        <div class="ic">②</div>
+        <div class="meta"><b>二级好友</b><div>你的好友再邀请来的人，其服务费你分成 <b>3%</b></div></div>
+      </div>
+      <p class="small muted" style="margin:10px 0 0">
+        ⚠️ 奖励<b>只到第二级，绝不向下延伸</b>。返利来自被邀请人「真实 AI 用量产生的服务费分成」，
+        <b>不是邀请人头给现金</b>——好友不消费，就没有返利。
+      </p>
+    </div>
+
+    <!-- 我的返利 -->
+    <div class="card">
+      <h3>我的返利 · 本月到账</h3>
+      <div class="li">
+        <div class="ic">💰</div>
+        <div class="meta">
+          <b>李** <span class="badge brand">一级好友</span></b>
+          <div>本月 AI 用量 ¥40.0 · 服务费分成 8%</div>
+        </div>
+        <div class="right"><b style="color:var(--accent)">+¥3.20</b></div>
+      </div>
+      <div class="li">
+        <div class="ic">💰</div>
+        <div class="meta">
+          <b>王** <span class="badge brand">一级好友</span></b>
+          <div>本月 AI 用量 ¥21.3 · 服务费分成 8%</div>
+        </div>
+        <div class="right"><b style="color:var(--accent)">+¥1.70</b></div>
+      </div>
+      <div class="li">
+        <div class="ic">💰</div>
+        <div class="meta">
+          <b>张** <span class="badge gray">二级好友</span></b>
+          <div>本月 AI 用量 ¥30.0 · 服务费分成 3%</div>
+        </div>
+        <div class="right"><b style="color:var(--accent)">+¥0.90</b></div>
+      </div>
+      <div class="li">
+        <div class="ic">💰</div>
+        <div class="meta">
+          <b>陈** <span class="badge gray">二级好友</span></b>
+          <div>本月 AI 用量 ¥12.5 · 服务费分成 3%</div>
+        </div>
+        <div class="right"><b style="color:var(--accent)">+¥0.38</b></div>
+      </div>
+      <div class="divider"></div>
+      <div class="row" style="align-items:center">
+        <span class="small muted">本月累计返利（全部来自真实消费）</span>
+        <span style="flex:0 0 auto"><b style="color:var(--accent);font-size:18px">¥6.18</b></span>
+      </div>
+    </div>
+
+    <!-- 合规说明 -->
+    <div class="card">
+      <p class="small muted" style="margin:0">
+        <b>机制说明</b>：本合作社为成员提供「集体采购折扣（全体共享，随总人数加深）」+「真实消费服务费返利」。
+        返利<b>两级封顶</b>（仅一级好友与二级好友），<b>奖励绑定真实 AI 用量、不绑拉人头</b>，
+        不存在任何形式的多级分销、团队计酬或拉人头返现。无消费即无返利。
+      </p>
+    </div>
+
+  </div>
+
+  <!-- 底部 tab -->
+  <nav class="tabbar">
+    <a href="index.html"><span class="ic">🏠</span>首页</a>
+    <a href="aggregate.html"><span class="ic">💬</span>用AI</a>
+    <a href="eval.html"><span class="ic">📊</span>评测</a>
+    <a href="referral.html" class="on"><span class="ic">🤝</span>合作社</a>
+  </nav>
+
+  <div class="compliance">仅聚合国内已备案合规大模型 · 境内闭环</div>
+
+</div>
+</body>
+</html>

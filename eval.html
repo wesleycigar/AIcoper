@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI效能评测 · AIcoper</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="phone">
+
+  <div class="topbar">
+    <a class="back" href="index.html">←</a>
+    <span class="logo">AI 效能评测</span>
+    <span class="sub">中立第三方实测</span>
+  </div>
+
+  <div class="scroll">
+
+    <!-- 中立性声明 -->
+    <div class="hero">
+      <div class="lbl">AI 界的「米其林指南」</div>
+      <div style="font-size:18px;font-weight:800;margin:4px 0 8px">不站队任何厂商 · 真实任务实测</div>
+      <div class="small" style="color:rgba(255,255,255,.9)">
+        AIcoper 不属于任何一家模型厂商。评测数据来自合作社成员的真实任务实测，
+        <b>用的人越多，评分越准。</b>
+      </div>
+    </div>
+
+    <!-- 六维雷达图 -->
+    <div class="card">
+      <h3>六维能力雷达图</h3>
+      <div class="small muted" style="margin:-6px 0 10px">点下方标签切换模型对比（成本已归一化，越高代表越便宜）</div>
+
+      <div style="text-align:center">
+        <svg id="radar" viewBox="0 0 320 300" width="100%" style="max-width:320px">
+          <!-- 网格 + 轴：由脚本注入 -->
+          <g id="grid"></g>
+          <g id="axes"></g>
+          <g id="labels"></g>
+          <!-- 能力多边形 -->
+          <polygon id="shape" points="" fill="rgba(14,165,164,.22)" stroke="#0EA5A4" stroke-width="2.5" style="transition:.4s"/>
+          <g id="dots"></g>
+        </svg>
+      </div>
+
+      <div class="row" style="flex-wrap:wrap;gap:8px;justify-content:center;margin-top:6px">
+        <span class="badge brand" data-m="deepseek" onclick="pick(this)" style="cursor:pointer">DeepSeek-R1</span>
+        <span class="badge gray"  data-m="qwen"     onclick="pick(this)" style="cursor:pointer">通义千问 Qwen</span>
+        <span class="badge gray"  data-m="glm"      onclick="pick(this)" style="cursor:pointer">智谱 GLM</span>
+      </div>
+      <div id="radarNote" class="small center muted" style="margin-top:10px"></div>
+    </div>
+
+    <!-- 模型对比表 -->
+    <div class="section-title">国产模型横向对比（百分制）</div>
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>模型</th>
+            <th>成本↓</th>
+            <th>速度</th>
+            <th>逻辑</th>
+            <th>抗幻觉</th>
+            <th>原创</th>
+            <th>理论</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>DeepSeek-R1</b></td>
+            <td class="tag-best">95</td>
+            <td>82</td>
+            <td class="tag-best">94</td>
+            <td>88</td>
+            <td>80</td>
+            <td class="tag-best">92</td>
+          </tr>
+          <tr>
+            <td><b>通义千问 Qwen</b></td>
+            <td>86</td>
+            <td>88</td>
+            <td>85</td>
+            <td class="tag-best">90</td>
+            <td>84</td>
+            <td>86</td>
+          </tr>
+          <tr>
+            <td><b>豆包 Doubao</b></td>
+            <td>90</td>
+            <td class="tag-best">93</td>
+            <td>80</td>
+            <td>83</td>
+            <td>82</td>
+            <td>78</td>
+          </tr>
+          <tr>
+            <td><b>Kimi</b></td>
+            <td>84</td>
+            <td>85</td>
+            <td>86</td>
+            <td>87</td>
+            <td class="tag-best">89</td>
+            <td>84</td>
+          </tr>
+          <tr>
+            <td><b>智谱 GLM</b></td>
+            <td>88</td>
+            <td>84</td>
+            <td>89</td>
+            <td>86</td>
+            <td>85</td>
+            <td>88</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="small muted" style="margin-top:8px">绿色 = 该维度当前最优。评分每周随实测样本动态更新。</div>
+    </div>
+
+    <!-- 按需求帮你选 -->
+    <div class="section-title">按需求帮你选</div>
+    <div class="card">
+      <h3>你想用 AI 干什么？</h3>
+      <div class="row" style="flex-wrap:wrap;gap:8px;margin-bottom:4px">
+        <button class="btn ghost sm" onclick="rec('code',this)">💻 写代码</button>
+        <button class="btn ghost sm" onclick="rec('copy',this)">✍️ 中文文案</button>
+        <button class="btn ghost sm" onclick="rec('research',this)">📚 学术调研</button>
+        <button class="btn ghost sm" onclick="rec('reason',this)">🧩 复杂推理</button>
+      </div>
+
+      <div id="recBox" style="margin-top:12px;display:none">
+        <div class="li" style="border-bottom:0">
+          <div class="ic" id="recIc">🏆</div>
+          <div class="meta">
+            <b id="recTitle"></b>
+            <div id="recWhy"></div>
+          </div>
+        </div>
+        <div class="card" style="margin:0 0 12px;background:var(--brand-lt);box-shadow:none">
+          <div class="row" style="text-align:center;align-items:center">
+            <div>
+              <div class="small muted">单独购买</div>
+              <b id="recOld" style="text-decoration:line-through;color:var(--muted)"></b>
+            </div>
+            <div>
+              <div class="small muted">合作社价</div>
+              <b id="recNew" style="color:var(--brand-dk);font-size:16px"></b>
+            </div>
+            <div>
+              <div class="small muted">为你省</div>
+              <span class="badge green" id="recSave"></span>
+            </div>
+          </div>
+        </div>
+        <a class="btn accent" href="aggregate.html" id="recBtn">一键用这个模型 →</a>
+      </div>
+      <div id="recHint" class="small center muted" style="margin-top:6px">选一个场景，给你最优推荐</div>
+    </div>
+
+    <div class="compliance">仅聚合国内已备案合规大模型 · 境内闭环</div>
+
+  </div>
+
+  <nav class="tabbar">
+    <a href="index.html"><span class="ic">🏠</span>首页</a>
+    <a href="aggregate.html"><span class="ic">💬</span>用AI</a>
+    <a href="eval.html" class="on"><span class="ic">📊</span>评测</a>
+    <a href="referral.html"><span class="ic">🤝</span>合作社</a>
+  </nav>
+
+</div>
+
+<script>
+/* ---------- 六维雷达图（纯内联 SVG 手绘） ---------- */
+var CX = 160, CY = 150, R = 95;           // 中心与半径
+var DIMS = ["成本","速度","逻辑","抗幻觉","原创","理论"];
+var MODELS = {
+  deepseek:{ name:"DeepSeek-R1", note:"逻辑与理论深度领先，综合最强", vals:[95,82,94,88,80,92] },
+  qwen:    { name:"通义千问 Qwen", note:"中文与抗幻觉均衡，稳定可靠", vals:[86,88,85,90,84,86] },
+  glm:     { name:"智谱 GLM", note:"各维度无短板的六边形战士", vals:[88,84,89,86,85,88] }
+};
+
+// 第 i 个轴的方向（顶点朝上，顺时针）
+function angle(i){ return -Math.PI/2 + i*(2*Math.PI/6); }
+function pt(i, ratio){
+  var a = angle(i);
+  return [ CX + Math.cos(a)*R*ratio, CY + Math.sin(a)*R*ratio ];
+}
+
+// 画网格（4 圈六边形）+ 轴线 + 维度标签
+(function draw(){
+  var grid="", axes="", labels="";
+  for(var ring=1; ring<=4; ring++){
+    var rr = ring/4, pts=[];
+    for(var i=0;i<6;i++){ var p=pt(i,rr); pts.push(p[0].toFixed(1)+","+p[1].toFixed(1)); }
+    grid += '<polygon points="'+pts.join(" ")+'" fill="none" stroke="#E5E7EB" stroke-width="1"/>';
+  }
+  for(var i=0;i<6;i++){
+    var p=pt(i,1);
+    axes += '<line x1="'+CX+'" y1="'+CY+'" x2="'+p[0].toFixed(1)+'" y2="'+p[1].toFixed(1)+'" stroke="#E5E7EB" stroke-width="1"/>';
+    var lp=pt(i,1.18);
+    var anchor = Math.abs(lp[0]-CX)<6 ? "middle" : (lp[0]>CX ? "start":"end");
+    labels += '<text x="'+lp[0].toFixed(1)+'" y="'+(lp[1]+4).toFixed(1)+'" font-size="12" fill="#6B7280" text-anchor="'+anchor+'">'+DIMS[i]+'</text>';
+  }
+  document.getElementById("grid").innerHTML = grid;
+  document.getElementById("axes").innerHTML = axes;
+  document.getElementById("labels").innerHTML = labels;
+})();
+
+function render(key){
+  var m = MODELS[key], pts=[], dots="";
+  for(var i=0;i<6;i++){
+    var p = pt(i, m.vals[i]/100);
+    pts.push(p[0].toFixed(1)+","+p[1].toFixed(1));
+    dots += '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3" fill="#0F766E"/>';
+  }
+  document.getElementById("shape").setAttribute("points", pts.join(" "));
+  document.getElementById("dots").innerHTML = dots;
+  document.getElementById("radarNote").innerHTML = "<b>"+m.name+"</b> · "+m.note;
+}
+
+function pick(el){
+  var b = document.querySelectorAll('[data-m]');
+  for(var i=0;i<b.length;i++){ b[i].className = "badge gray"; }
+  el.className = "badge brand";
+  render(el.getAttribute("data-m"));
+}
+render("deepseek");
+
+/* ---------- 按需求帮你选 ---------- */
+var REC = {
+  code:    { ic:"💻", title:"写代码 → 推荐 DeepSeek-R1", why:"逻辑 94 / 理论 92 全场最高，代码与算法综合最优。", old:"¥0.046/千tokens", neu:"¥0.030/千tokens", save:"省 35%" },
+  copy:    { ic:"✍️", title:"中文文案 → 推荐 Kimi", why:"原创度 89 领先，中文长文与营销文案更有灵气。", old:"¥0.040/千tokens", neu:"¥0.028/千tokens", save:"省 30%" },
+  research:{ ic:"📚", title:"学术调研 → 推荐 通义千问 Qwen", why:"抗幻觉 90 最高，引用与事实更可靠，少编造。", old:"¥0.044/千tokens", neu:"¥0.029/千tokens", save:"省 34%" },
+  reason:  { ic:"🧩", title:"复杂推理 → 推荐 DeepSeek-R1", why:"深度思考链最强，多步推理与数学题表现最佳。", old:"¥0.048/千tokens", neu:"¥0.031/千tokens", save:"省 35%" }
+};
+function rec(key, btn){
+  var r = REC[key];
+  document.getElementById("recBox").style.display = "block";
+  document.getElementById("recHint").style.display = "none";
+  document.getElementById("recIc").textContent = r.ic;
+  document.getElementById("recTitle").textContent = r.title;
+  document.getElementById("recWhy").textContent = r.why;
+  document.getElementById("recOld").textContent = r.old;
+  document.getElementById("recNew").textContent = r.neu;
+  document.getElementById("recSave").textContent = r.save;
+  // 高亮当前选中的场景按钮
+  var btns = btn.parentNode.querySelectorAll('button');
+  for(var i=0;i<btns.length;i++){ btns[i].className = "btn ghost sm"; }
+  btn.className = "btn primary sm";
+}
+</script>
+
+</body>
+</html>

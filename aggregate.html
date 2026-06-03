@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>用 AI · AIcoper</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  /* 仅做布局微调，不引入新视觉风格；底部输入框固定 */
+  .chatbox{position:fixed;left:50%;transform:translateX(-50%);bottom:64px;width:100%;max-width:430px;
+    background:#fff;border-top:1px solid var(--line);padding:8px 12px;display:flex;gap:8px;align-items:center;z-index:19}
+  .chatbox input{flex:1;border:1px solid var(--line);border-radius:999px;padding:10px 14px;font-size:14px;outline:none}
+  .scroll{padding-bottom:150px}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="topbar">
+    <span class="back">‹</span>
+    <span class="logo">用 AI</span>
+    <span class="sub">自动路由 · 单次优化</span>
+  </div>
+
+  <div class="scroll" id="scroll">
+
+    <div class="section-title">和 AIcoper 对话，它替你挑最划算的国产模型</div>
+
+    <!-- 第一轮：文案写作 -->
+    <div id="chat">
+      <div class="bubble me">帮我写一份创业计划书提纲</div>
+
+      <div class="route">⚡ AIcoper 已自动选择：通义千问 Qwen（擅长文案 / 中文写作）</div>
+
+      <div class="bubble ai">
+        没问题，给你一份精简提纲：<br>
+        1. 项目概述与愿景<br>
+        2. 市场痛点与需求分析<br>
+        3. 产品 / 服务方案<br>
+        4. 商业模式与盈利路径<br>
+        5. 竞品与差异化优势<br>
+        6. 团队介绍<br>
+        7. 财务预测与融资计划
+      </div>
+
+      <!-- 成本对比小卡 -->
+      <div class="card">
+        <h3>💰 本次任务成本</h3>
+        <div class="row">
+          <div class="stat">
+            <span class="num" style="color:var(--muted);font-size:22px;text-decoration:line-through">¥0.30</span>
+            <span class="lbl">高价模型预计</span>
+          </div>
+          <div class="stat">
+            <span class="num" style="font-size:22px">¥0.03</span>
+            <span class="lbl">AIcoper 实际</span>
+          </div>
+          <div class="stat">
+            <span class="num">90%</span>
+            <span class="lbl">本次节省</span>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="small muted center">已自动路由至 <b>Qwen</b>，同等质量更低价 · <span class="badge green">已为你省 ¥0.27</span></div>
+      </div>
+    </div>
+
+    <!-- 第二轮：写代码，不同任务路由到不同模型 -->
+    <div class="bubble me">帮我写个 Python 爬虫抓取网页标题</div>
+
+    <div class="route">⚡ AIcoper 已自动选择：DeepSeek（擅长代码生成 / 逻辑严谨）</div>
+
+    <div class="bubble ai">
+      用 requests + BeautifulSoup 即可：<br>
+      <span class="small muted">import requests, bs4 …（已为你生成完整代码）</span>
+    </div>
+
+    <div class="card">
+      <h3>💰 本次任务成本</h3>
+      <div class="row">
+        <div class="stat">
+          <span class="num" style="color:var(--muted);font-size:22px;text-decoration:line-through">¥0.40</span>
+          <span class="lbl">高价模型预计</span>
+        </div>
+        <div class="stat">
+          <span class="num" style="font-size:22px">¥0.05</span>
+          <span class="lbl">AIcoper 实际</span>
+        </div>
+        <div class="stat">
+          <span class="num">88%</span>
+          <span class="lbl">本次节省</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="small muted center">已自动路由至 <b>DeepSeek</b> · <span class="badge green">已为你省 ¥0.35</span></div>
+    </div>
+
+    <!-- 路由规则表 -->
+    <div class="card">
+      <h3>🧭 AIcoper 自动路由规则</h3>
+      <div class="small muted" style="margin-bottom:6px">不同任务自动派给最擅长 + 最划算的国产模型</div>
+
+      <div class="li">
+        <span class="ic">✍️</span>
+        <div class="meta"><b>文案 / 中文写作</b><div>提纲、文章、营销文案</div></div>
+        <span class="right"><span class="badge brand">通义千问 Qwen</span></span>
+      </div>
+      <div class="li">
+        <span class="ic">💻</span>
+        <div class="meta"><b>写代码 / 调试</b><div>脚本、函数、报错排查</div></div>
+        <span class="right"><span class="badge brand">DeepSeek</span></span>
+      </div>
+      <div class="li">
+        <span class="ic">📚</span>
+        <div class="meta"><b>知识问答</b><div>百科、常识、快速检索</div></div>
+        <span class="right"><span class="badge brand">豆包 Doubao</span></span>
+      </div>
+      <div class="li">
+        <span class="ic">🧠</span>
+        <div class="meta"><b>复杂推理 / 数学</b><div>多步逻辑、深度分析</div></div>
+        <span class="right"><span class="badge brand">DeepSeek 深度推理</span></span>
+      </div>
+      <div class="li">
+        <span class="ic">📄</span>
+        <div class="meta"><b>长文档总结</b><div>长上下文、超长文本</div></div>
+        <span class="right"><span class="badge brand">Kimi</span></span>
+      </div>
+    </div>
+
+    <div class="compliance">仅聚合国内已备案合规大模型 · 境内闭环</div>
+  </div>
+
+  <!-- 底部输入框 -->
+  <div class="chatbox">
+    <input id="msg" type="text" placeholder="发消息，AIcoper 自动选最优模型…">
+    <button class="btn primary sm" onclick="send()">发送</button>
+  </div>
+
+  <nav class="tabbar">
+    <a href="index.html"><span class="ic">🏠</span>首页</a>
+    <a href="aggregate.html" class="on"><span class="ic">💬</span>用AI</a>
+    <a href="eval.html"><span class="ic">📊</span>评测</a>
+    <a href="referral.html"><span class="ic">🤝</span>合作社</a>
+  </nav>
+</div>
+
+<script>
+  function send(){
+    var inp = document.getElementById('msg');
+    var t = inp.value.trim();
+    if(!t) return;
+    var chat = document.getElementById('chat');
+    var me = document.createElement('div');
+    me.className = 'bubble me';
+    me.textContent = t;
+    chat.appendChild(me);
+
+    var route = document.createElement('div');
+    route.className = 'route';
+    route.textContent = '⚡ AIcoper 正在自动选择最优国产模型…';
+    chat.appendChild(route);
+
+    inp.value = '';
+    var sc = document.getElementById('scroll');
+    sc.scrollTop = sc.scrollHeight;
+
+    setTimeout(function(){
+      route.textContent = '⚡ AIcoper 已自动选择：通义千问 Qwen（擅长文案 / 中文写作）';
+      var ai = document.createElement('div');
+      ai.className = 'bubble ai';
+      ai.textContent = '收到，已用最划算的国产模型为你处理本次请求（演示）。';
+      chat.appendChild(ai);
+      sc.scrollTop = sc.scrollHeight;
+    }, 600);
+  }
+  document.getElementById('msg').addEventListener('keydown', function(e){
+    if(e.key === 'Enter') send();
+  });
+</script>
+</body>
+</html>
