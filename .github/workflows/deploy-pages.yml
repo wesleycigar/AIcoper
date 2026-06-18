@@ -29,10 +29,11 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Copy web to deploy root
+      - name: Copy HTML files to deploy root
         run: |
           mkdir -p _site
-          cp -r web/* _site/
+          cp *.html _site/
+          cp -r assets _site/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
