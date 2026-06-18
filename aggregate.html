@@ -247,8 +247,8 @@ function sendMessage(){
   callBackend(text, activeModels, multi, area);
 }
 
-// 部署后改为Railway实际URL，如 'https://aicoper.up.railway.app'
-var API_BASE = 'http://localhost:8000';
+// Cloudflare Tunnel 公网后端
+var API_BASE = 'https://bobby-fuji-guests-meters.trycloudflare.com';
 
 async function callBackend(message, models, multiEl, area){
   if(!backendOnline){
