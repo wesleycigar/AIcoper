@@ -33,6 +33,8 @@ jobs:
         run: |
           mkdir -p _site
           cp *.html _site/
+          cp *.json _site/ 2>/dev/null || true
+          cp *.js _site/ 2>/dev/null || true
           cp -r assets _site/
 
       - name: Upload artifact
