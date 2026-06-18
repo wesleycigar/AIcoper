@@ -144,7 +144,7 @@ var demoReplies = {
   doubao:'豆包需要在火山引擎控制台创建推理接入点(Endpoint)。'
 };
 
-var API_BASE = 'http://localhost:8000';
+var API_BASE = 'https://acdbentity-evanescence-untitled-manhattan.trycloudflare.com';
 var backendOnline = false;
 
 // 检测后端状态
@@ -246,9 +246,6 @@ function sendMessage(){
   // 真实API调用
   callBackend(text, activeModels, multi, area);
 }
-
-// Cloudflare Tunnel 公网后端
-var API_BASE = 'https://bobby-fuji-guests-meters.trycloudflare.com';
 
 async function callBackend(message, models, multiEl, area){
   if(!backendOnline){
