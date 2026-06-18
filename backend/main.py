@@ -219,6 +219,75 @@ async def get_member(member_id: str):
         "expires_at": row[4]
     }
 
+# ========== 共建社区API ==========
+
+class ProjectCreate(BaseModel):
+    title: str
+    domain: str  # research/venture/industry/stewardship
+    description: str
+    author: str
+
+class CommentCreate(BaseModel):
+    project_id: int
+    author: str
+    content: str
+
+def init_community_db():
+    conn = sqlite3.connect("aicoper.db")
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS projects (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT, domain TEXT, description TEXT, author TEXT,
+            status TEXT DEFAULT 'recruiting',
+            created_at TEXT DEFAULT (datetime('now'))
+        )
+    """)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS comments (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            project_id INTEGER, author TEXT, content TEXT,
+            created_at TEXT DEFAULT (datetime('now')),
+            FOREIGN KEY(project_id) REFERENCES projects(id)
+        )
+    """)
+    conn.commit()
+    conn.close()
+
+init_community_db()
+
+@app.get("/api/projects")
+async def list_projects():
+    conn = sqlite3.connect("aicoper.db")
+    rows = conn.execute("SELECT * FROM projects ORDER BY created_at DESC").fetchall()
+    conn.close()
+    return {"projects": [{"id":r[0],"title":r[1],"domain":r[2],"description":r[3],"author":r[4],"status":r[5],"created_at":r[6]} for r in rows]}
+
+@app.post("/api/projects")
+async def create_project(req: ProjectCreate):
+    conn = sqlite3.connect("aicoper.db")
+    conn.execute("INSERT INTO projects (title,domain,description,author) VALUES (?,?,?,?)",
+                 (req.title, req.domain, req.description, req.author))
+    conn.commit()
+    project_id = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+    conn.close()
+    return {"ok": True, "id": project_id}
+
+@app.get("/api/projects/{project_id}/comments")
+async def list_comments(project_id: int):
+    conn = sqlite3.connect("aicoper.db")
+    rows = conn.execute("SELECT * FROM comments WHERE project_id=? ORDER BY created_at", (project_id,)).fetchall()
+    conn.close()
+    return {"comments": [{"id":r[0],"author":r[2],"content":r[3],"created_at":r[4]} for r in rows]}
+
+@app.post("/api/projects/{project_id}/comments")
+async def add_comment(project_id: int, req: CommentCreate):
+    conn = sqlite3.connect("aicoper.db")
+    conn.execute("INSERT INTO comments (project_id,author,content) VALUES (?,?,?)",
+                 (project_id, req.author, req.content))
+    conn.commit()
+    conn.close()
+    return {"ok": True}
+
 @app.get("/api/health")
 async def health():
     return {"status": "ok", "models_configured": sum(1 for k in API_KEYS.values() if k)}

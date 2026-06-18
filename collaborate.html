@@ -2,10 +2,25 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>共建 · AIcoper</title>
 <link rel="stylesheet" href="assets/style.css">
-<style>.scroll{padding:0 14px 88px}</style>
+<style>
+  .scroll{padding:0 14px 100px}
+  .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:50;justify-content:center;align-items:center}
+  .modal.show{display:flex}
+  .modal-box{background:var(--card);border-radius:var(--r);padding:20px;width:90%;max-width:420px;max-height:80vh;overflow-y:auto}
+  .modal-box h3{margin:0 0 14px}
+  .modal-box label{display:block;font-size:13px;font-weight:600;margin-bottom:4px}
+  .modal-box input,.modal-box textarea,.modal-box select{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px;font-size:14px;margin-bottom:12px;font-family:inherit;outline:none}
+  .modal-box textarea{min-height:80px;resize:vertical}
+  .modal-actions{display:flex;gap:8px;justify-content:flex-end}
+  .clickable{cursor:pointer;transition:.15s}
+  .clickable:hover{background:var(--bg)}
+  .comment-box{padding:10px;background:var(--bg);border-radius:10px;margin:6px 0;font-size:13px}
+  .comment-box .c-author{font-weight:600;font-size:12px;margin-bottom:2px}
+  .comment-box .c-time{font-size:11px;color:var(--muted)}
+</style>
 </head>
 <body>
 <div class="phone">
@@ -20,133 +35,87 @@
 
     <div class="hero" style="background:linear-gradient(135deg,#0A1628,#1A2A4A)">
       <div style="font-size:20px;font-weight:800;margin-bottom:4px">不是单向使用工具，<br>是<span style="color:#FFD700">共建研究社区</span></div>
-      <div class="small" style="opacity:.8;margin-top:8px">
-        发布课题合作 → 组织话题讨论 → 发现高水平成员 → 组建团队
-      </div>
+      <div class="small" style="opacity:.8;margin-top:8px">发布课题合作 → 组织话题讨论 → 发现高水平成员 → 组建团队</div>
     </div>
 
-    <!-- 四大板块入口 -->
-    <div class="section-title">四大能力领域</div>
-    <div class="row" style="gap:8px">
-      <div class="card" style="text-align:center;flex:1;margin-bottom:0">
-        <div style="font-size:28px;margin-bottom:4px">🔬</div>
-        <div style="font-weight:700;font-size:13px">科研</div>
-        <div class="small muted">探索真相</div>
-      </div>
-      <div class="card" style="text-align:center;flex:1;margin-bottom:0">
-        <div style="font-size:28px;margin-bottom:4px">🚀</div>
-        <div style="font-weight:700;font-size:13px">创业</div>
-        <div class="small muted">探索可能</div>
-      </div>
-      <div class="card" style="text-align:center;flex:1;margin-bottom:0">
-        <div style="font-size:28px;margin-bottom:4px">🏭</div>
-        <div style="font-weight:700;font-size:13px">产业</div>
-        <div class="small muted">探索规模化</div>
-      </div>
-      <div class="card" style="text-align:center;flex:1;margin-bottom:0">
-        <div style="font-size:28px;margin-bottom:4px">🏛️</div>
-        <div style="font-weight:700;font-size:13px">传承</div>
-        <div class="small muted">探索持续</div>
-      </div>
-    </div>
+    <button class="btn primary" onclick="openPublish()" style="margin-bottom:16px">✍️ 发布课题/话题</button>
 
-    <!-- 课题合作 -->
+    <!-- 课题列表 -->
     <div class="section-title">📋 课题合作</div>
-    <div class="card">
-      <div class="li">
-        <div class="ic">🔬</div>
-        <div class="meta">
-          <b>「中国农村多层次养老保障体系」课题合作</b>
-          <div>寻找2-3位经济学/社会学背景研究者，共同申请国家社科基金。要求：熟悉定量方法、有田野调查经验。</div>
-        </div>
-        <div class="right"><span class="badge amber">招募中</span></div>
-      </div>
-      <div class="li">
-        <div class="ic">🚀</div>
-        <div class="meta">
-          <b>「AI+消费决策助手」创业合伙人招募</b>
-          <div>已有原型和种子用户，寻找技术合伙人（全栈/移动端）和行业BD。项目已通过3轮对抗模式锤炼。</div>
-        </div>
-        <div class="right"><span class="badge brand">热门</span></div>
-      </div>
-      <div class="li">
-        <div class="ic">🏭</div>
-        <div class="meta">
-          <b>「传统制造企业AI转型」案例研究合作</b>
-          <div>征集5-8家中小制造企业深度案例，共同产出行业白皮书。欢迎产业研究者、咨询顾问加入。</div>
-        </div>
-        <div class="right"><span class="badge gray">预发布</span></div>
-      </div>
+    <div class="card" id="projectList">
+      <div class="small muted center" style="padding:20px">加载中…</div>
     </div>
 
     <!-- 话题讨论 -->
     <div class="section-title">💬 热门话题</div>
     <div class="card">
-      <div class="li">
-        <div class="ic">🔥</div>
-        <div class="meta">
-          <b>「AI会让普通白领失去意义感吗？」</b>
-          <div>已有多模型发散视角作为讨论起点 · 42条讨论</div>
-        </div>
-        <div class="right"><span class="badge brand">热议</span></div>
+      <div class="li clickable" onclick="toast('💬 讨论区已打开（演示）')">
+        <div class="ic">🔥</div><div class="meta"><b>「AI会让普通白领失去意义感吗？」</b><div>42条讨论</div></div><div class="right"><span class="badge brand">热议</span></div>
       </div>
-      <div class="li">
-        <div class="ic">📊</div>
-        <div class="meta">
-          <b>「独立家办 vs 银行系私行：未来五年谁会赢？」</b>
-          <div>四个模型从政策/市场/人才/合规角度给出了不同结论 · 28条讨论</div>
-        </div>
-        <div class="right"><span class="badge amber">活跃</span></div>
+      <div class="li clickable" onclick="toast('💬 讨论区已打开（演示）')">
+        <div class="ic">📊</div><div class="meta"><b>「独立家办 vs 银行系私行：未来五年谁会赢？」</b><div>28条讨论</div></div><div class="right"><span class="badge amber">活跃</span></div>
       </div>
-      <div class="li">
-        <div class="ic">🎓</div>
-        <div class="meta">
-          <b>「国自然青年基金的选题策略：2027年什么方向最值得投？」</b>
-          <div>发散模式发现了3个被忽视的交叉领域 · 35条讨论</div>
-        </div>
-        <div class="right"><span class="badge amber">活跃</span></div>
+      <div class="li clickable" onclick="toast('💬 讨论区已打开（演示）')">
+        <div class="ic">🎓</div><div class="meta"><b>「国自然青年基金的选题策略」</b><div>35条讨论</div></div><div class="right"><span class="badge amber">活跃</span></div>
       </div>
     </div>
 
     <!-- 人才发现 -->
     <div class="section-title">⭐ 近期活跃成员</div>
     <div class="card">
-      <div class="li">
-        <div class="ic" style="background:var(--brand-lt)">陈</div>
-        <div class="meta">
-          <b>陈博士 · 经济学 · 某985高校</b>
-          <div>近30天贡献：12次对抗锤炼 · 5条高质量评价 · 1项课题发布</div>
-        </div>
-        <div class="right"><span class="badge brand">高信号</span></div>
+      <div class="li clickable" onclick="toast('👤 查看陈博士的完整档案（演示）')">
+        <div class="ic" style="background:var(--brand-lt)">陈</div><div class="meta"><b>陈博士 · 经济学 · 某985高校</b><div>12次对抗锤炼 · 5条评价 · 1项课题</div></div><div class="right"><span class="badge brand">高信号</span></div>
       </div>
-      <div class="li">
-        <div class="ic" style="background:#FEF3C7">李</div>
-        <div class="meta">
-          <b>李总 · 连续创业者 · AI+消费赛道</b>
-          <div>近30天贡献：8次BP锤炼 · 3条评价 · 合伙人招募中</div>
-        </div>
-        <div class="right"><span class="badge brand">高信号</span></div>
+      <div class="li clickable" onclick="toast('👤 查看李总的完整档案（演示）')">
+        <div class="ic" style="background:#FEF3C7">李</div><div class="meta"><b>李总 · 连续创业者 · AI+消费赛道</b><div>8次BP锤炼 · 3条评价 · 合伙人招募中</div></div><div class="right"><span class="badge brand">高信号</span></div>
       </div>
-      <div class="li">
-        <div class="ic" style="background:#E8F5E8">王</div>
-        <div class="meta">
-          <b>王顾问 · 家办行业 · 10年从业经验</b>
-          <div>近30天贡献：6次决策交叉验证 · 2条深度讨论</div>
-        </div>
-        <div class="right"><span class="badge amber">活跃</span></div>
-      </div>
-    </div>
-
-    <div class="card" style="text-align:center;background:var(--brand-lt);border:1px solid var(--brand)">
-      <div class="small" style="color:var(--brand-dk);font-weight:600">
-        💡 这就是AIcoper的共建平台——<br>
-        你不是在"用一个工具"，你是在<b>共建一个研究社区</b>。<br>
-        <span style="font-size:11px;opacity:.7">发布课题 · 参与讨论 · 发现人才 · 组建团队</span>
+      <div class="li clickable" onclick="toast('👤 查看王顾问的完整档案（演示）')">
+        <div class="ic" style="background:#E8F5E8">王</div><div class="meta"><b>王顾问 · 家办行业 · 10年从业经验</b><div>6次决策交叉验证 · 2条深度讨论</div></div><div class="right"><span class="badge amber">活跃</span></div>
       </div>
     </div>
 
     <div class="compliance">国产模型：已备案合规聚合 · 国际模型：独立第三方评测，不代理不转售</div>
 
+  </div>
+
+  <!-- 发布弹窗 -->
+  <div class="modal" id="publishModal" onclick="if(event.target===this)closePublish()">
+    <div class="modal-box">
+      <h3>✍️ 发布课题/话题</h3>
+      <label>标题</label>
+      <input type="text" id="pTitle" placeholder="如：寻找养老经济研究合作者">
+      <label>领域</label>
+      <select id="pDomain">
+        <option value="research">🔬 科研</option>
+        <option value="venture">🚀 创业</option>
+        <option value="industry">🏭 产业</option>
+        <option value="stewardship">🏛️ 传承</option>
+      </select>
+      <label>描述</label>
+      <textarea id="pDesc" placeholder="详细描述你的课题/话题…"></textarea>
+      <label>你的名字</label>
+      <input type="text" id="pAuthor" placeholder="输入你的昵称">
+      <div class="modal-actions">
+        <button class="btn sm ghost" onclick="closePublish()">取消</button>
+        <button class="btn sm primary" onclick="submitPublish()">发布</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 讨论弹窗 -->
+  <div class="modal" id="commentModal" onclick="if(event.target===this)closeComment()">
+    <div class="modal-box">
+      <h3 id="commentTitle">💬 参与讨论</h3>
+      <div id="commentList" style="max-height:250px;overflow-y:auto;margin-bottom:12px"></div>
+      <label>你的名字</label>
+      <input type="text" id="cAuthor" placeholder="输入你的昵称">
+      <label>你的想法</label>
+      <textarea id="cContent" placeholder="写下你的想法…" style="min-height:60px"></textarea>
+      <div class="modal-actions">
+        <button class="btn sm ghost" onclick="closeComment()">关闭</button>
+        <button class="btn sm primary" onclick="submitComment()">发表</button>
+      </div>
+    </div>
   </div>
 
   <nav class="tabbar">
@@ -159,5 +128,98 @@
   </nav>
 
 </div>
+
+<script>
+var API_BASE = window.location.hostname==='localhost' ? 'http://localhost:8000' : 'https://acdbentity-evanescence-untitled-manhattan.trycloudflare.com';
+var currentProjectId = null;
+
+function toast(msg){
+  var t=document.createElement('div');
+  t.textContent=msg;t.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.88);color:#fff;padding:14px 28px;border-radius:999px;font-size:15px;font-weight:600;z-index:999';
+  document.body.appendChild(t);
+  setTimeout(function(){t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(function(){t.remove()},300)},1800);
+}
+
+function openPublish(){document.getElementById('publishModal').classList.add('show')}
+function closePublish(){document.getElementById('publishModal').classList.remove('show')}
+function closeComment(){document.getElementById('commentModal').classList.remove('show')}
+
+async function submitPublish(){
+  var title=document.getElementById('pTitle').value.trim();
+  var domain=document.getElementById('pDomain').value;
+  var desc=document.getElementById('pDesc').value.trim();
+  var author=document.getElementById('pAuthor').value.trim()||'匿名';
+  if(!title||!desc){toast('请填写标题和描述');return}
+
+  try{
+    var r=await fetch(API_BASE+'/api/projects',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({title:title,domain:domain,description:desc,author:author})
+    });
+    if(r.ok){closePublish();loadProjects();toast('✅ 发布成功！')}
+    else toast('❌ 发布失败')
+  }catch(e){toast('❌ 后端不可用，请确认已启动')}
+}
+
+async function loadProjects(){
+  var list=document.getElementById('projectList');
+  try{
+    var r=await fetch(API_BASE+'/api/projects');
+    var data=await r.json();
+    if(!data.projects||data.projects.length===0){
+      list.innerHTML='<div class="small muted center" style="padding:20px">暂无课题，点击上方按钮发布第一个</div>';
+      return;
+    }
+    var icons={research:'🔬',venture:'🚀',industry:'🏭',stewardship:'🏛️'};
+    var html='';
+    data.projects.forEach(function(p){
+      html+='<div class="li clickable" onclick="openComment('+p.id+',\''+escHtml(p.title)+'\')">';
+      html+='<div class="ic">'+(icons[p.domain]||'📋')+'</div>';
+      html+='<div class="meta"><b>'+escHtml(p.title)+'</b><div>'+escHtml(p.description).substring(0,60)+'…</div></div>';
+      html+='<div class="right"><span class="badge amber">'+p.status+'</span></div></div>';
+    });
+    list.innerHTML=html;
+  }catch(e){list.innerHTML='<div class="small muted center" style="padding:20px">🔴 后端未连接</div>'}
+}
+
+async function openComment(pid,title){
+  currentProjectId=pid;
+  document.getElementById('commentTitle').textContent='💬 '+title;
+  document.getElementById('commentModal').classList.add('show');
+  try{
+    var r=await fetch(API_BASE+'/api/projects/'+pid+'/comments');
+    var data=await r.json();
+    var html='';
+    if(!data.comments||data.comments.length===0) html='<div class="small muted center" style="padding:10px">暂无讨论，第一个发言吧</div>';
+    else data.comments.forEach(function(c){
+      html+='<div class="comment-box"><div class="c-author">'+escHtml(c.author)+' <span class="c-time">'+c.created_at+'</span></div><div>'+escHtml(c.content)+'</div></div>';
+    });
+    document.getElementById('commentList').innerHTML=html;
+  }catch(e){document.getElementById('commentList').innerHTML='<div class="small muted center">无法加载讨论</div>'}
+}
+
+async function submitComment(){
+  var author=document.getElementById('cAuthor').value.trim()||'匿名';
+  var content=document.getElementById('cContent').value.trim();
+  if(!content){toast('请输入内容');return}
+  if(!currentProjectId) return;
+
+  try{
+    var r=await fetch(API_BASE+'/api/projects/'+currentProjectId+'/comments',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({project_id:currentProjectId,author:author,content:content})
+    });
+    if(r.ok){
+      document.getElementById('cContent').value='';
+      openComment(currentProjectId,document.getElementById('commentTitle').textContent.replace('💬 ',''));
+      toast('✅ 发表成功')
+    }
+  }catch(e){toast('❌ 发表失败')}
+}
+
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+loadProjects();
+</script>
 </body>
 </html>
