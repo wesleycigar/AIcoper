@@ -100,3 +100,209 @@ th{color:var(--muted);font-weight:600;font-size:12px}
 .compliance{font-size:11px;color:var(--muted);text-align:center;padding:14px 0}
 .divider{height:1px;background:var(--line);margin:14px 0}
 .section-title{font-size:13px;color:var(--muted);margin:4px 2px 8px;font-weight:600}
+
+/* ========== v0.2 深度层组件 ========== */
+
+/* 对抗模式：每个模型的挑战卡片 */
+.adversary-row{
+  display:flex;flex-direction:column;gap:10px;
+}
+.adversary-card{
+  background:var(--card);border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--line);transition:.15s;
+  box-shadow:0 1px 2px rgba(0,0,0,.03);
+}
+.adversary-card.expanded{
+  border-color:var(--brand);
+}
+.adversary-card .ac-header{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 14px;cursor:pointer;
+}
+.adversary-card .ac-model-badge{
+  font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;
+  white-space:nowrap;
+}
+.ac-model-badge.ds{background:#E8F0FE;color:#1A56DB}
+.ac-model-badge.qwen{background:#F3E8FF;color:#6B21A8}
+.ac-model-badge.doubao{background:#E8F5E8;color:#2E5A2E}
+.ac-model-badge.kimi{background:#FFF0E5;color:#B85C2A}
+
+.adversary-card .ac-stance{
+  flex:1;font-size:13px;font-weight:600;color:var(--ink);
+}
+.adversary-card .ac-expand{
+  font-size:11px;color:var(--muted);flex-shrink:0;
+}
+.adversary-card .ac-body{
+  display:none;padding:0 14px 14px;
+}
+.adversary-card.expanded .ac-body{
+  display:block;
+}
+.ac-critique{
+  font-size:14px;line-height:1.65;color:var(--ink);
+  padding:12px;background:var(--bg);border-radius:10px;
+  margin-bottom:8px;
+}
+.ac-score-row{
+  display:flex;gap:6px;align-items:center;font-size:12px;color:var(--muted);
+}
+.ac-score-row .score-dot{
+  width:6px;height:6px;border-radius:50%;
+}
+.ac-score-row .score-dot.red{background:var(--danger)}
+.ac-score-row .score-dot.amber{background:var(--warn)}
+.ac-score-row .score-dot.green{background:var(--success)}
+
+/* 发散模式：并排呈现 */
+.diverge-grid{
+  display:flex;flex-direction:column;gap:12px;
+}
+.diverge-card{
+  background:var(--card);border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--line);box-shadow:0 1px 2px rgba(0,0,0,.03);
+}
+.diverge-card .dc-header{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 14px;background:var(--bg);
+  border-bottom:1px solid var(--line);font-size:12px;font-weight:600;
+}
+.diverge-card .dc-header .dc-model{flex:1}
+.diverge-card .dc-header .dc-angle-tag{
+  font-size:10px;padding:2px 8px;border-radius:999px;
+  background:var(--brand-lt);color:var(--brand-dk);
+}
+.diverge-card .dc-body{
+  padding:14px;font-size:14px;line-height:1.65;
+}
+.diverge-card .dc-highlight{
+  color:var(--brand-dk);font-weight:600;
+}
+
+/* 分歧高亮 */
+.divergence-badge{
+  display:inline-block;padding:3px 10px;border-radius:6px;
+  font-size:11px;font-weight:700;margin-bottom:8px;
+}
+.divergence-badge.agree{background:#E8F5E8;color:#2E5A2E}
+.divergence-badge.disagree{background:#FFF0E5;color:#B85C2A}
+.divergence-badge.unique{background:#F3E8FF;color:#6B21A8}
+
+/* 双入口卡片 */
+.dual-entry{
+  display:flex;gap:12px;margin-bottom:12px;
+}
+.dual-entry .entry-card{
+  flex:1;background:var(--card);border-radius:var(--r);
+  padding:20px 14px;text-align:center;
+  box-shadow:var(--shadow);cursor:pointer;transition:.15s;
+  border:2px solid transparent;text-decoration:none;color:inherit;
+  display:block;
+}
+.dual-entry .entry-card:active{
+  transform:scale(.97);
+}
+.dual-entry .entry-card.exec{
+  border-color:var(--line);
+}
+.dual-entry .entry-card.deep{
+  border-color:var(--brand);background:linear-gradient(180deg,#fff 0%,var(--brand-lt) 100%);
+}
+.entry-card .ec-icon{font-size:32px;margin-bottom:8px}
+.entry-card .ec-title{font-size:16px;font-weight:700;margin-bottom:4px}
+.entry-card .ec-desc{font-size:12px;color:var(--muted)}
+.entry-card .ec-badge{
+  display:inline-block;margin-top:8px;padding:3px 10px;
+  border-radius:999px;font-size:10px;font-weight:700;
+}
+.ec-badge.free{background:var(--line);color:var(--muted)}
+.ec-badge.member{background:var(--brand-lt);color:var(--brand-dk)}
+
+/* 输入区域 */
+.input-zone{
+  padding:14px;
+}
+.input-zone textarea{
+  width:100%;min-height:90px;border:1.5px solid var(--line);
+  border-radius:var(--r);padding:14px;font-size:15px;
+  font-family:inherit;resize:vertical;outline:none;
+  line-height:1.6;
+}
+.input-zone textarea:focus{
+  border-color:var(--brand);
+}
+.input-hint{
+  font-size:12px;color:var(--muted);margin-top:6px;text-align:center;
+}
+
+/* ========== 桌面端响应式（≥768px）========== */
+@media (min-width: 768px) {
+  body{background:#E8E0D5;display:flex;justify-content:center}
+  .phone{max-width:1100px;width:100%;min-height:100vh;border-radius:0;box-shadow:0 0 40px rgba(0,0,0,.1)}
+  .scroll{padding:24px 40px 48px;max-width:960px;margin:0 auto;display:block}
+  .topbar{padding:16px 40px;position:sticky}
+  .topbar .logo{font-size:22px}
+  .topbar .sub{font-size:14px}
+
+  /* hero */
+  .hero{padding:32px 28px;border-radius:var(--r);margin-bottom:20px}
+  .hero .lbl{font-size:22px !important}
+  .hero .num{font-size:40px}
+  .section-title{font-size:14px;margin:8px 0 12px}
+
+  /* 多列卡片容器——首页/共建页的卡片自动横排 */
+  .row{gap:14px}
+  .row > .card{margin-bottom:0}
+
+  /* 双入口 */
+  .dual-entry{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+  .dual-entry .entry-card{padding:32px 24px;min-height:160px}
+  .entry-card .ec-icon{font-size:42px}
+  .entry-card .ec-title{font-size:18px}
+  .entry-card .ec-desc{font-size:13px}
+
+  /* tabbar——顶部导航 */
+  .tabbar{position:sticky;top:0;z-index:19;max-width:1100px;
+    background:var(--card);border-bottom:1px solid var(--line);border-top:none;
+    display:flex;justify-content:center;gap:0;padding:0;transform:none;left:auto;bottom:auto}
+  .tabbar a{flex:0 0 auto;padding:14px 22px;font-size:13px;border-bottom:3px solid transparent}
+  .tabbar a.on{border-bottom-color:var(--brand)}
+  .tabbar a .ic{display:inline;font-size:15px;margin-right:5px}
+
+  /* 对抗卡片——两列网格，每列均分 */
+  .adversary-row{display:grid !important;grid-template-columns:1fr 1fr;gap:14px;flex-direction:unset}
+  .adversary-card{border:1px solid var(--line);transition:border-color .15s,box-shadow .15s}
+  .adversary-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.06)}
+
+  /* 发散卡片——两列网格 */
+  .diverge-grid{display:grid !important;grid-template-columns:1fr 1fr;gap:14px;flex-direction:unset}
+  .diverge-card{transition:box-shadow .15s}
+  .diverge-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.06)}
+
+  /* 评测表 */
+  table{font-size:14px} th,td{padding:12px 10px}
+
+  /* 卡片 hover */
+  .card{transition:box-shadow .15s;margin-bottom:16px}
+  .card:hover{box-shadow:0 2px 16px rgba(0,0,0,.07)}
+
+  /* 按钮 */
+  .btn{max-width:420px;margin-left:auto;margin-right:auto;font-size:15px}
+  .btn.sm{max-width:none}
+
+  /* 输入区域 */
+  .input-zone textarea{min-height:130px;font-size:16px}
+
+  /* Toast */
+  .toast{font-size:16px}
+
+  /* 共建页课题卡片——两列 */
+  .card > .li{transition:background .15s}
+  .card > .li:hover{background:var(--bg)}
+
+  /* 场景页步骤列表——桌面端两列 */
+  .card > div[style*="flex-direction:column"]{
+    display:grid !important;grid-template-columns:1fr 1fr;gap:6px;
+  }
+}

@@ -1,0 +1,24 @@
+# ===== 敏感文件 =====
+.env
+*.key
+*.pem
+secrets/
+
+# ===== Python =====
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# ===== 数据库 =====
+*.db
+*.sqlite3
+
+# ===== 收款码 =====
+# 已在assets/中，不要上传到公开仓库
+assets/alipay.jpg
+assets/wechat.jpg
+
+# ===== OS =====
+.DS_Store
+Thumbs.db

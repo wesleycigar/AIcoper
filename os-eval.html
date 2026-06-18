@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>OS评测 · AIcoper</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .scroll{padding:0 14px 88px}
+  .os-dim{display:flex;align-items:center;gap:8px;padding:8px 0}
+  .os-dim .dim-name{width:90px;font-size:13px;font-weight:600;flex-shrink:0}
+  .os-dim .dim-bar{flex:1;height:6px;background:var(--line);border-radius:999px;overflow:hidden}
+  .os-dim .dim-bar i{display:block;height:100%;border-radius:999px}
+  .os-dim .dim-level{font-size:11px;color:var(--muted);width:80px;text-align:right;flex-shrink:0}
+  .dim-l1{background:var(--line)}
+  .dim-l2{background:var(--brand)}
+  .dim-l3{background:var(--accent)}
+  .star-row{display:flex;gap:2px}
+  .star-row span{font-size:14px;color:var(--line)}
+  .star-row span.on{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <div class="topbar">
+    <a href="index.html" class="back">‹</a>
+    <span class="logo">🖥️ AI操作系统评测</span>
+    <span class="sub">比较工具 · 大众点评</span>
+  </div>
+
+  <div class="scroll">
+
+    <!-- Hero -->
+    <div class="hero" style="background:linear-gradient(135deg,#1A0A2E,#2D1B4E)">
+      <div style="font-size:20px;font-weight:800;margin-bottom:4px">不只比较大脑，<br>更比较<span style="color:#FFD700">谁更能干活</span></div>
+      <div class="small" style="opacity:.8;margin-top:8px">
+        AIcoper提供初始专业评测 → 注册用户补充评价 → 汇总形成AI工具大众点评
+      </div>
+    </div>
+
+    <!-- 评测对象选择 -->
+    <div class="section-title">当前评测对象</div>
+    <div class="row" style="flex-wrap:wrap;gap:6px;margin-bottom:12px">
+      <span class="badge brand" style="cursor:pointer;padding:6px 12px;font-size:12px" onclick="switchOS('codewhale',this)">CodeWhale</span>
+      <span class="badge gray" style="cursor:pointer;padding:6px 12px;font-size:12px" onclick="switchOS('claude-code',this)">Claude Code</span>
+      <span class="badge gray" style="cursor:pointer;padding:6px 12px;font-size:12px" onclick="switchOS('codex',this)">Codex</span>
+      <span class="badge gray" style="cursor:pointer;padding:6px 12px;font-size:12px" onclick="switchOS('cursor',this)">Cursor</span>
+      <span class="badge gray" style="cursor:pointer;padding:6px 12px;font-size:12px" onclick="switchOS('kimi-agent',this)">Kimi Agent</span>
+      <span class="badge gray" style="cursor:pointer;padding:6px 12px;font-size:12px" onclick="switchOS('workbuddy',this)">WorkBuddy</span>
+    </div>
+
+    <!-- 评测详情 -->
+    <div class="card" id="osDetail">
+      <h3>📊 CodeWhale · 综合评测</h3>
+      <div class="small muted" style="margin:-6px 0 10px">AIcoper 初始专业评测 · 基于多场景实测</div>
+
+      <div class="os-dim">
+        <span class="dim-name">自动化</span>
+        <div class="dim-bar"><i style="width:67%;background:var(--brand)"></i></div>
+        <span class="dim-level">② 跨文件重构</span>
+      </div>
+      <div class="os-dim">
+        <span class="dim-name">逻辑推理</span>
+        <div class="dim-bar"><i style="width:95%;background:var(--accent)"></i></div>
+        <span class="dim-level">③ 发现矛盾</span>
+      </div>
+      <div class="os-dim">
+        <span class="dim-name">成本效率</span>
+        <div class="dim-bar"><i style="width:67%;background:var(--brand)"></i></div>
+        <span class="dim-level">② 批量经济</span>
+      </div>
+      <div class="os-dim">
+        <span class="dim-name">人类和谐</span>
+        <div class="dim-bar"><i style="width:67%;background:var(--brand)"></i></div>
+        <span class="dim-level">② 情绪调整</span>
+      </div>
+      <div class="os-dim">
+        <span class="dim-name">专业适配</span>
+        <div class="dim-bar"><i style="width:67%;background:var(--brand)"></i></div>
+        <span class="dim-level">② 领域优势</span>
+      </div>
+      <div class="os-dim">
+        <span class="dim-bar"><i style="width:33%;background:var(--line)"></i></div>
+        <span class="dim-name">生态开放</span>
+        <span class="dim-level">① 有API</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="small" style="line-height:1.7;color:var(--ink)">
+        <b>AIcoper评测备注：</b><br>
+        CodeWhale的Constitution机制在多文件编辑前验证一致性，这是目前评测对象中独有的"修改前自检"能力。前缀缓存带来显著的长session成本优势。当前短板：复杂feature需人工拆解为多步，缺乏插件生态。
+      </div>
+    </div>
+
+    <!-- 对比表 -->
+    <div class="section-title">📋 多维度对比总表</div>
+    <div class="card" style="overflow-x:auto">
+      <table style="font-size:12px">
+        <thead>
+          <tr><th>工具</th><th>自动化</th><th>逻辑</th><th>成本</th><th>和谐度</th><th>适配</th><th>生态</th><th>综评</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>CodeWhale</b></td><td>⭐⭐</td><td class="tag-best">⭐⭐⭐</td><td>⭐⭐</td><td>⭐⭐</td><td>⭐⭐</td><td>⭐</td><td class="tag-best">8.4</td></tr>
+          <tr><td><b>Claude Code</b></td><td class="tag-best">⭐⭐⭐</td><td>⭐⭐⭐</td><td>⭐⭐</td><td class="tag-best">⭐⭐⭐</td><td class="tag-best">⭐⭐⭐</td><td>⭐</td><td>8.2</td></tr>
+          <tr><td><b>Codex</b></td><td>⭐⭐</td><td>⭐⭐</td><td class="tag-best">⭐⭐⭐</td><td>⭐⭐</td><td>⭐⭐</td><td class="tag-best">⭐⭐⭐</td><td>7.5</td></tr>
+          <tr><td><b>Cursor</b></td><td class="tag-best">⭐⭐⭐</td><td>⭐⭐</td><td>⭐</td><td>⭐⭐</td><td>⭐⭐</td><td>⭐⭐</td><td>7.8</td></tr>
+          <tr><td><b>Kimi Agent</b></td><td>⭐⭐</td><td>⭐⭐</td><td>⭐⭐</td><td>⭐⭐</td><td>⭐⭐</td><td>⭐</td><td>7.2</td></tr>
+          <tr><td><b>WorkBuddy</b></td><td>⭐⭐</td><td>⭐</td><td>⭐⭐</td><td>⭐</td><td>⭐</td><td>⭐</td><td>6.5</td></tr>
+        </tbody>
+      </table>
+      <div class="small muted" style="margin-top:8px">⭐=①级 ⭐⭐=②级 ⭐⭐⭐=③级。绿色=该维度最高。评分每周更新。</div>
+    </div>
+
+    <!-- 用户评价区 -->
+    <div class="section-title">💬 用户评价（0条）</div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:30px;margin-bottom:8px">📝</div>
+      <div style="font-weight:600;margin-bottom:4px">成为第一个评价的人</div>
+      <div class="small muted" style="margin-bottom:12px">
+        完成至少1次对抗或发散使用后，即可对任意AI操作系统打分+写评价
+      </div>
+      <button class="btn sm primary" onclick="toast('✅ 请先完成一次对抗或发散使用后解锁评价功能（演示）')">✍️ 写评价</button>
+    </div>
+
+    <div class="card" style="text-align:center;background:var(--brand-lt);border:1px solid var(--brand)">
+      <div class="small" style="color:var(--brand-dk);font-weight:600">
+        💡 AIcoper提供初始评测作为"种子内容"，<br>
+        真实用户的评分和评价才是这个榜单的灵魂。<br>
+        <span style="font-size:11px;opacity:.7">防刷：注册7天+完成1次深度使用方可评分</span>
+      </div>
+    </div>
+
+    <div class="compliance">国产模型：已备案合规聚合 · 国际模型：独立第三方评测，不代理不转售</div>
+
+  </div>
+
+  <nav class="tabbar">
+    <a href="index.html"><span class="ic">🏠</span>首页</a>
+    <a href="aggregate.html"><span class="ic">💬</span>用AI</a>
+    <a href="advocate.html"><span class="ic">⚔️</span>对抗</a>
+    <a href="diverge.html"><span class="ic">🔀</span>发散</a>
+    <a href="eval.html"><span class="ic">📊</span>评测</a>
+    <a href="collaborate.html"><span class="ic">🤝</span>共建</a>
+  </nav>
+
+</div>
+
+<script>
+function toast(msg){
+  var t=document.createElement('div');
+  t.textContent=msg;t.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.88);color:#fff;padding:14px 28px;border-radius:999px;font-size:15px;font-weight:600;z-index:999';
+  document.body.appendChild(t);
+  setTimeout(function(){t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(function(){t.remove()},300)},1800);
+}
+function switchOS(name,el){
+  var badges=document.querySelectorAll('.badge.brand,.badge.gray');
+  badges.forEach(function(b){b.className=b.className.replace('brand','gray')});
+  el.className=el.className.replace('gray','brand');
+  toast('🔄 切换到 ' + el.textContent + '（演示：完整数据开发中）');
+}
+</script>
+</body>
+</html>

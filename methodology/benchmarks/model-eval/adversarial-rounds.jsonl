@@ -1,0 +1,7 @@
+{"task_id":"AR001","scene":"科研选题","user_idea":"我申请国家自然科学基金青年项目的选题方向是AI辅助的金融风险预警模型","model":"deepseek","role":"研究方法论挑刺","critique":"你的理论+数据+政策三段论评审见过太多次。需要说清增量贡献：你的模型比ARIMA-GARCH基准好在哪里？金融风险预警的核心难点是样本外推能力——罕见事件训练数据几乎没有。","depth_score":4,"actionability":4}
+{"task_id":"AR001","scene":"科研选题","user_idea":"我申请国家自然科学基金青年项目的选题方向是AI辅助的金融风险预警模型","model":"qwen","role":"政策评审视角","critique":"监管科技是热点这个理由不够——要说明为什么是你做而不是央行自己做。找一位监管机构研究员做合作者，不仅让评审觉得有人能用，还解决了数据可得性。","depth_score":5,"actionability":5}
+{"task_id":"AR001","scene":"科研选题","user_idea":"我申请国家自然科学基金青年项目的选题方向是AI辅助的金融风险预警模型","model":"kimi","role":"跨学科视角","critique":"选题框架读起来像技术方案而非科学问题。发挥经济学背景优势：你的模型预警出的风险能不能解释为什么传统指标没发现？这个为什么比多准更有学术价值。","depth_score":4,"actionability":4}
+{"task_id":"AR002","scene":"创业BP","user_idea":"我想做一个寿险代理人专属的AI早报App","model":"deepseek","role":"市场视角","critique":"获客成本能压到很低是整个模型里最脆弱的一句话。两段获客——先获客代理人再靠代理人转发获客终端客户——每一层都在漏。","depth_score":4,"actionability":3}
+{"task_id":"AR002","scene":"创业BP","user_idea":"我想做一个寿险代理人专属的AI早报App","model":"qwen","role":"逻辑视角","critique":"你同时要代理人愿意转发和把客户沉淀到自己后台，这两件事互相打架。代理人最怕平台截留客户。","depth_score":5,"actionability":5}
+{"task_id":"AR002","scene":"创业BP","user_idea":"我想做一个寿险代理人专属的AI早报App","model":"doubao","role":"用户视角","critique":"代理人早上不缺早报——微信里已经躺着保司晨会、团队长群发、同行推送。他真正会发给客户的是跟具体客户保单直接相关的东西。","depth_score":4,"actionability":3}
+{"task_id":"AR002","scene":"创业BP","user_idea":"我想做一个寿险代理人专属的AI早报App","model":"kimi","role":"合规视角","critique":"AI生成保险内容→代理人转发给客户做营销这条链在监管上是高压区。销售误导责任会追到内容提供方。","depth_score":5,"actionability":5}

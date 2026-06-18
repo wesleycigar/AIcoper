@@ -9,145 +9,312 @@
 <body>
 <div class="phone">
 
-  <!-- 顶部栏 -->
   <div class="topbar">
     <a href="index.html" class="back">‹</a>
     <span class="logo">我的合作社</span>
+    <span class="sub">放大器权益包</span>
   </div>
 
   <div class="scroll">
 
-    <!-- hero -->
+    <!-- 会员制 hero：我的会员状态 + 专属集采折扣 -->
     <div class="hero">
-      <div class="small" style="opacity:.9;margin-bottom:6px">我已邀请 <b>12</b> 位好友，共同把合作社规模做大</div>
-      <div class="stat">
-        <span class="num">14%</span>
-        <span class="lbl">当前我的专属采购折扣</span>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="font-size:18px;font-weight:800">🎯 放大器权益包</span>
+        <span class="badge green" style="background:#FFD700;color:#7C4A00">会员生效中</span>
       </div>
-      <div class="small" style="text-align:center;opacity:.85;margin-top:8px">折扣 = 基础合作社折扣 + 我的贡献加成</div>
+      <div class="small" style="opacity:.9;margin-bottom:14px">
+        ¥299/年 · 有效期至 2027-06-17 · 便宜只是入口，变强才是留下的理由
+      </div>
+      <div class="row">
+        <div class="stat">
+          <div class="num" style="color:#FFD700">14%</div>
+          <div class="lbl">我的专属集采折扣</div>
+        </div>
+        <div class="stat">
+          <div class="num" style="color:#fff">¥386</div>
+          <div class="lbl">今年已省采购费</div>
+        </div>
+      </div>
+      <div class="small" style="opacity:.78;margin-top:12px;line-height:1.5">
+        我的 14% = 全体共享 12%（基础）+ 我的贡献加成 2%。<br>
+        基础折扣全员一致，与首页口径一致；加成来自我邀请的活跃成员扩大了集采规模。
+      </div>
     </div>
 
-    <!-- 折扣阶梯 -->
+    <!-- 放大器权益包卡：5-6 项权益 -->
+    <div class="section-title">¥299/年 · 这个包里有什么</div>
     <div class="card">
-      <h3>折扣阶梯 · 全体共享</h3>
-      <p class="small muted" style="margin:0 0 12px">用的人越多，规模采购成本越低，省下的钱按比例返还给<b>每一位</b>成员。这是真实的集采机制，不是口号。</p>
-
-      <div class="small" style="display:flex;justify-content:space-between;margin-bottom:4px">
-        <span>当前合作社规模</span>
-        <b>2,185 / 5,000 人</b>
+      <p class="small muted" style="margin:0 0 10px;line-height:1.6">
+        卖的不是折扣，是"让你用 AI 变强"的整包——<b>便宜只是入口，变强才是留下的理由。</b>
+      </p>
+      <div class="li">
+        <div class="ic">💰</div>
+        <div class="meta">
+          <b>专属集采折扣 · 越多人用越便宜</b>
+          <div>合作社集体采购，所有模型调用自动打折，省钱是用得越多越划算的入口</div>
+        </div>
+        <div class="right"><span class="badge green">省钱</span></div>
       </div>
-      <div class="bar" style="margin-bottom:14px"><i style="width:43.7%"></i></div>
+      <div class="li">
+        <div class="ic">⚔️</div>
+        <div class="meta">
+          <b>对抗模式 · 让方案经得起挑战</b>
+          <div>多个 AI 从不同立场给你的 BP/论文/提案挑刺，改完再交，想法被捶得更硬</div>
+        </div>
+        <div class="right"><span class="badge brand">深度</span></div>
+      </div>
+      <div class="li">
+        <div class="ic">🔀</div>
+        <div class="meta">
+          <b>发散模式 · 看见你没想到的角度</b>
+          <div>一个问题同时问多个模型并保留分歧，帮你发现盲区，避免单一视角犯错</div>
+        </div>
+        <div class="right"><span class="badge brand">深度</span></div>
+      </div>
+      <div class="li">
+        <div class="ic">📋</div>
+        <div class="meta">
+          <b>工作流市场 · 别人验证过的方法直接用</b>
+          <div>学术基金申请流·商业计划书流·投资尽调流——资深成员沉淀的实战方法论，不是模板</div>
+        </div>
+        <div class="right"><span class="badge brand">权益</span></div>
+      </div>
+      <div class="li">
+        <div class="ic">🌱</div>
+        <div class="meta">
+          <b>成长内容 · 越用越会用</b>
+          <div>每周深度评测解读 · Prompt 思维训练——让你从"会用"到"会想"，不是越用越依赖</div>
+        </div>
+        <div class="right"><span class="badge amber">成长</span></div>
+      </div>
+      <div class="li">
+        <div class="ic">👥</div>
+        <div class="meta">
+          <b>成员社群 · 一群认真用 AI 的人</b>
+          <div>知识星球式高粘性社群，成员互教用法、线下创作聚会，不是单向灌输</div>
+        </div>
+        <div class="right"><span class="badge gray">社群</span></div>
+      </div>
+    </div>
+
+    <!-- 折扣阶梯卡：全体共享，用得越多越便宜 -->
+    <div class="section-title">折扣阶梯 · 全体共享，用的人越多越便宜</div>
+    <div class="card">
+      <p class="small muted" style="margin:0 0 12px;line-height:1.6">
+        合作社当月集采规模越大，全员折扣越高。<b>这是真实机制：折扣全体共享，不是个人特权。</b>
+      </p>
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px">
+        <span>当前规模 <b style="color:var(--ink)">1,860 人</b></span>
+        <span>距 2,000 人解锁 <b style="color:var(--accent)">12%</b> 还差 140 人</span>
+      </div>
+      <div class="bar" style="margin-bottom:14px"><i style="width:62%"></i></div>
 
       <div class="li">
-        <div class="ic">🟢</div>
-        <div class="meta"><b>满 1,000 人 → 10% 折扣</b><div>已达成</div></div>
+        <div class="ic" style="background:#D1FAE5">✓</div>
+        <div class="meta"><b>满 1,000 人</b><div>全员共享 <b>10%</b> 折扣</div></div>
         <div class="right"><span class="badge green">已解锁</span></div>
       </div>
       <div class="li">
-        <div class="ic">🟢</div>
-        <div class="meta"><b>满 2,000 人 → 12% 折扣</b><div>已达成（当前生效档位）</div></div>
-        <div class="right"><span class="badge green">已解锁</span></div>
-      </div>
-      <div class="li">
-        <div class="ic">⏳</div>
-        <div class="meta"><b>满 5,000 人 → 15% 折扣</b><div>还差 2,815 人解锁</div></div>
+        <div class="ic" style="background:var(--brand-lt)">②</div>
+        <div class="meta"><b>满 2,000 人</b><div>全员共享 <b>12%</b> 折扣（当前共享口径）</div></div>
         <div class="right"><span class="badge amber">进行中</span></div>
       </div>
       <div class="li">
-        <div class="ic">🔒</div>
-        <div class="meta"><b>满 10,000 人 → 18% 折扣</b><div>下一里程碑</div></div>
+        <div class="ic">③</div>
+        <div class="meta"><b>满 5,000 人</b><div>全员共享 <b>15%</b> 折扣</div></div>
         <div class="right"><span class="badge gray">未解锁</span></div>
       </div>
+      <p class="small muted" style="margin:10px 0 0;line-height:1.6">
+        我现在用的 14% = 当前共享 12% + 我邀请的活跃成员带来的 2% 贡献加成。基础 12% 与首页"全体共享折扣"完全一致。
+      </p>
     </div>
 
-    <!-- 邀请好友 -->
+    <!-- 双边即时激励：驱动传播 -->
+    <div class="section-title">邀请就有 · 双边即时到账</div>
     <div class="card">
-      <h3>邀请好友，一起把价格打下来</h3>
-      <button class="btn accent" onclick="document.getElementById('invite').style.display='block'">生成我的邀请卡</button>
-      <div id="invite" class="small muted center" style="display:none;margin-top:10px;padding:10px;background:var(--bg);border-radius:10px">
-        🎴 邀请卡已生成：邀请码 <b>COOP-7K2D9</b>（演示）
+      <div class="row" style="gap:12px">
+        <div class="card" style="margin:0;background:var(--brand-lt);box-shadow:none;text-align:center;padding:14px">
+          <div style="font-size:22px;margin-bottom:4px">🎁</div>
+          <b style="font-size:14px">朋友首月会员费半价</b>
+          <div class="small muted" style="margin-top:4px">被邀请人立省 ¥12.5，门槛更低</div>
+        </div>
+        <div class="card" style="margin:0;background:#FEF3C7;box-shadow:none;text-align:center;padding:14px">
+          <div style="font-size:22px;margin-bottom:4px">⚡</div>
+          <b style="font-size:14px">我即时得体验额度</b>
+          <div class="small muted" style="margin-top:4px">朋友加入即到账，无需等分成</div>
+        </div>
       </div>
+      <p class="small muted center" style="margin:12px 0 0">
+        即时奖励比慢分成更能驱动传播——加入那一刻，双方都有得。
+      </p>
+    </div>
 
-      <div class="divider"></div>
-
-      <p class="section-title">返利怎么来？（两级封顶）</p>
+    <!-- 两级返利 + 三条护栏 -->
+    <div class="section-title">邀请朋友 · 一起变强一起省</div>
+    <div class="card">
+      <h3>🤝 两级共享返利（两级封顶）</h3>
+      <p class="small muted" style="margin:0 0 12px;line-height:1.6">
+        朋友<b>真实消费产生的服务费</b>，平台拿出一部分与你共享。<b>朋友真用了才有，没消费就没有。</b>
+      </p>
       <div class="li">
         <div class="ic">①</div>
-        <div class="meta"><b>一级好友</b><div>你直接邀请的人，他真实使用 AI 产生的服务费，你分成 <b>8%</b></div></div>
+        <div class="meta"><b>一级好友</b><div>其消费产生的服务费，我分 <b style="color:var(--accent)">8%</b></div></div>
+        <div class="right"><span class="badge brand">一级</span></div>
       </div>
       <div class="li">
         <div class="ic">②</div>
-        <div class="meta"><b>二级好友</b><div>你的好友再邀请来的人，其服务费你分成 <b>3%</b></div></div>
+        <div class="meta"><b>二级好友（朋友再邀请的人）</b><div>其消费产生的服务费，我分 <b style="color:var(--accent)">3%</b></div></div>
+        <div class="right"><span class="badge amber">二级</span></div>
       </div>
-      <p class="small muted" style="margin:10px 0 0">
-        ⚠️ 奖励<b>只到第二级，绝不向下延伸</b>。返利来自被邀请人「真实 AI 用量产生的服务费分成」，
-        <b>不是邀请人头给现金</b>——好友不消费，就没有返利。
-      </p>
-    </div>
+      <div class="li" style="border-bottom:0">
+        <div class="ic" style="background:#F3F4F6">🚫</div>
+        <div class="meta"><b>两级封顶，绝不向下延伸</b><div>三级及以下没有任何返利，不存在层层抽成</div></div>
+      </div>
 
-    <!-- 我的返利 -->
-    <div class="card">
-      <h3>我的返利 · 本月到账</h3>
-      <div class="li">
-        <div class="ic">💰</div>
-        <div class="meta">
-          <b>李** <span class="badge brand">一级好友</span></b>
-          <div>本月 AI 用量 ¥40.0 · 服务费分成 8%</div>
+      <!-- 三条护栏 -->
+      <div style="background:var(--bg);border-radius:var(--r-sm);padding:12px;margin-top:12px">
+        <div class="small" style="font-weight:700;color:var(--brand-dk);margin-bottom:8px">🛡️ 三条护栏（写死，不可逾越）</div>
+        <div class="small" style="line-height:1.7;color:var(--ink)">
+          <div style="margin-bottom:6px">
+            <b>护栏① 0 元注册即可邀请。</b>邀请资格不绑任何充值/付费，没有任何"入门费/加入费"。
+          </div>
+          <div style="margin-bottom:6px">
+            <b>护栏② 无消费即无返利。</b>返利只来自被邀请人真实消费产生的服务费分成，<u>绝不来自新人充值本金</u>。
+          </div>
+          <div>
+            <b>护栏③ 不构成多级分销。</b>本机制为合作社成员共享折扣 + 真实消费返利，两级封顶，不构成多级分销 / 不以拉人头计酬。
+          </div>
         </div>
-        <div class="right"><b style="color:var(--accent)">+¥3.20</b></div>
-      </div>
-      <div class="li">
-        <div class="ic">💰</div>
-        <div class="meta">
-          <b>王** <span class="badge brand">一级好友</span></b>
-          <div>本月 AI 用量 ¥21.3 · 服务费分成 8%</div>
-        </div>
-        <div class="right"><b style="color:var(--accent)">+¥1.70</b></div>
-      </div>
-      <div class="li">
-        <div class="ic">💰</div>
-        <div class="meta">
-          <b>张** <span class="badge gray">二级好友</span></b>
-          <div>本月 AI 用量 ¥30.0 · 服务费分成 3%</div>
-        </div>
-        <div class="right"><b style="color:var(--accent)">+¥0.90</b></div>
-      </div>
-      <div class="li">
-        <div class="ic">💰</div>
-        <div class="meta">
-          <b>陈** <span class="badge gray">二级好友</span></b>
-          <div>本月 AI 用量 ¥12.5 · 服务费分成 3%</div>
-        </div>
-        <div class="right"><b style="color:var(--accent)">+¥0.38</b></div>
-      </div>
-      <div class="divider"></div>
-      <div class="row" style="align-items:center">
-        <span class="small muted">本月累计返利（全部来自真实消费）</span>
-        <span style="flex:0 0 auto"><b style="color:var(--accent);font-size:18px">¥6.18</b></span>
       </div>
     </div>
 
-    <!-- 合规说明 -->
+    <!-- 预计可返测算 -->
     <div class="card">
-      <p class="small muted" style="margin:0">
-        <b>机制说明</b>：本合作社为成员提供「集体采购折扣（全体共享，随总人数加深）」+「真实消费服务费返利」。
-        返利<b>两级封顶</b>（仅一级好友与二级好友），<b>奖励绑定真实 AI 用量、不绑拉人头</b>，
-        不存在任何形式的多级分销、团队计酬或拉人头返现。无消费即无返利。
+      <h3>📈 预计可返测算</h3>
+      <p class="small muted" style="margin:0 0 10px">
+        基于"被邀请好友都保持活跃"的假设估算，实际以真实消费产生的服务费为准。
       </p>
+      <div class="row">
+        <div class="stat">
+          <div class="num">¥126</div>
+          <div class="lbl">本月预计可返 / 月</div>
+        </div>
+        <div class="stat">
+          <div class="num" style="color:var(--brand-dk)">5</div>
+          <div class="lbl">活跃一级 + 二级好友</div>
+        </div>
+      </div>
+      <p class="small muted center" style="margin:12px 0 0">
+        测算 = 一级好友服务费 × 8% + 二级好友服务费 × 3%
+      </p>
+    </div>
+
+    <!-- 生成邀请卡：真实可点动作 -->
+    <div class="section-title">邀请你的朋友</div>
+    <div class="card">
+      <div class="small muted" style="background:var(--bg);border-radius:var(--r-sm);padding:10px 12px;margin-bottom:12px;word-break:break-all">
+        我的专属邀请链接：<br><b id="inviteLink">https://aicoper.cn/join?ref=COOP-8F3A2K</b>
+      </div>
+      <div class="row" style="margin-bottom:10px">
+        <button class="btn ghost" onclick="copyLink()">🔗 复制邀请链接</button>
+        <button class="btn primary" onclick="makePoster()">🖼️ 生成邀请海报</button>
+      </div>
+      <!-- 海报占位（生成后填充） -->
+      <div id="posterBox" style="display:none;border:1.5px dashed var(--brand);border-radius:var(--r);padding:18px;text-align:center;background:var(--brand-lt)">
+        <div style="font-size:28px;margin-bottom:6px">🖼️</div>
+        <div style="font-weight:700;color:var(--brand-dk)">邀请海报已生成</div>
+        <div class="small muted" style="margin-top:4px">含我的专属二维码 · 朋友扫码加入，首月会员费半价</div>
+        <div class="small" style="margin-top:8px;color:var(--brand-dk)">长按保存图片即可分享（演示）</div>
+      </div>
+    </div>
+
+    <!-- 钱包 / 资金闭环 -->
+    <div class="section-title">我的返利钱包</div>
+    <div class="card">
+      <div class="row" style="margin-bottom:12px">
+        <div class="stat">
+          <div class="num">¥248.60</div>
+          <div class="lbl">可用余额</div>
+        </div>
+        <div class="stat">
+          <div class="num" style="color:var(--brand-dk)">¥1,032</div>
+          <div class="lbl">累计已返</div>
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn primary" onclick="toast('💸 提现申请已提交（演示）')">提现</button>
+        <button class="btn accent" onclick="toast('🎟️ 已抵扣下次用量（演示）')">抵扣下次用量</button>
+      </div>
+    </div>
+
+    <!-- 我的返利列表：badge 区分一级/二级 -->
+    <div class="section-title">返利明细</div>
+    <div class="card">
+      <div class="li">
+        <div class="ic" style="background:var(--brand-lt)">小</div>
+        <div class="meta"><b>小林（消费 ¥420）</b><div>服务费分成 8% · 06-15</div></div>
+        <div class="right"><span class="badge brand">一级</span><div style="color:var(--accent);font-weight:700;margin-top:2px">+¥9.60</div></div>
+      </div>
+      <div class="li">
+        <div class="ic" style="background:#FEF3C7">阿</div>
+        <div class="meta"><b>阿May（消费 ¥180）</b><div>服务费分成 3% · 06-14</div></div>
+        <div class="right"><span class="badge amber">二级</span><div style="color:var(--accent);font-weight:700;margin-top:2px">+¥1.62</div></div>
+      </div>
+      <div class="li">
+        <div class="ic" style="background:var(--brand-lt)">老</div>
+        <div class="meta"><b>老陈（消费 ¥860）</b><div>服务费分成 8% · 06-12</div></div>
+        <div class="right"><span class="badge brand">一级</span><div style="color:var(--accent);font-weight:700;margin-top:2px">+¥19.80</div></div>
+      </div>
+      <div class="li" style="border-bottom:0">
+        <div class="ic" style="background:#FEF3C7">W</div>
+        <div class="meta"><b>Wendy（消费 ¥95）</b><div>服务费分成 3% · 06-11</div></div>
+        <div class="right"><span class="badge amber">二级</span><div style="color:var(--accent);font-weight:700;margin-top:2px">+¥0.86</div></div>
+      </div>
+    </div>
+
+    <div class="compliance">
+      仅聚合国内已备案合规大模型 · 境内闭环 · 本机制为成员共享折扣 + 真实消费返利，两级封顶，不构成多级分销
     </div>
 
   </div>
 
-  <!-- 底部 tab -->
   <nav class="tabbar">
     <a href="index.html"><span class="ic">🏠</span>首页</a>
     <a href="aggregate.html"><span class="ic">💬</span>用AI</a>
+    <a href="advocate.html"><span class="ic">⚔️</span>对抗</a>
+    <a href="diverge.html"><span class="ic">🔀</span>发散</a>
     <a href="eval.html"><span class="ic">📊</span>评测</a>
-    <a href="referral.html" class="on"><span class="ic">🤝</span>合作社</a>
+    <a href="referral.html" class="on"><span class="ic">🤝</span>会员</a>
   </nav>
 
-  <div class="compliance">仅聚合国内已备案合规大模型 · 境内闭环</div>
-
 </div>
+
+<script>
+function toast(msg){
+  var t=document.createElement('div');
+  t.className='toast';t.textContent=msg;
+  t.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.88);color:#fff;padding:14px 28px;border-radius:999px;font-size:15px;font-weight:600;z-index:999';
+  document.body.appendChild(t);
+  setTimeout(function(){t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(function(){t.remove()},300)},1800);
+}
+function copyLink(){
+  var link=document.getElementById('inviteLink').textContent.trim();
+  function done(){toast('🔗 邀请链接已复制');}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(link).then(done).catch(fallback);
+  }else{fallback();}
+  function fallback(){
+    var ta=document.createElement('textarea');ta.value=link;
+    ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);
+    ta.select();try{document.execCommand('copy');}catch(e){}
+    ta.remove();done();
+  }
+}
+function makePoster(){
+  document.getElementById('posterBox').style.display='block';
+  toast('🖼️ 邀请海报已生成');
+}
+</script>
 </body>
 </html>

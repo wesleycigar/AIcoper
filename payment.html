@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>支付 · AIcoper</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .scroll{padding:0 14px 88px}
+  .qr-img{max-width:240px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.1);margin:0 auto;display:block}
+  .plan-card{border:2px solid var(--line);border-radius:var(--r);padding:18px;text-align:center;cursor:pointer;transition:.15s}
+  .plan-card:hover{border-color:var(--brand)}
+  .plan-card.selected{border-color:var(--brand);background:var(--brand-lt)}
+  .plan-card .price{font-size:28px;font-weight:800;color:var(--brand)}
+  .plan-card .period{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <div class="topbar">
+    <a href="index.html" class="back">‹</a>
+    <span class="logo">💳 升级会员</span>
+    <span class="sub">解锁深度锤炼</span>
+  </div>
+
+  <div class="scroll">
+
+    <div class="hero" style="background:linear-gradient(135deg,var(--brand),var(--brand-dk))">
+      <div style="font-size:20px;font-weight:800;margin-bottom:4px">解锁全部深度功能</div>
+      <div class="small" style="opacity:.85;margin-top:4px">
+        对抗模式 · 发散模式 · 工作流市场 · 共建社区
+      </div>
+    </div>
+
+    <!-- 方案选择 -->
+    <div class="section-title">选择方案</div>
+    <div class="row" style="gap:10px">
+      <div class="plan-card selected" id="planMonthly" onclick="selectPlan('monthly','¥25','/月',this)">
+        <div class="price">¥25</div>
+        <div class="period">/月</div>
+        <div class="small muted" style="margin-top:4px">每日不到 ¥0.85</div>
+      </div>
+      <div class="plan-card" id="planQuarterly" onclick="selectPlan('quarterly','¥68','/季',this)">
+        <div class="price">¥68</div>
+        <div class="period">/季</div>
+        <div class="small muted" style="margin-top:4px">省 ¥7 · 每日 ¥0.76</div>
+      </div>
+      <div class="plan-card" id="planYearly" onclick="selectPlan('yearly','¥299','/年',this)">
+        <div class="price">¥299</div>
+        <div class="period">/年</div>
+        <div class="small muted" style="margin-top:4px">每天不到 ¥0.82</div>
+      </div>
+    </div>
+
+    <!-- 支付方式 -->
+    <div class="section-title">扫码支付</div>
+    <div class="card" style="text-align:center">
+      <div class="small muted" style="margin-bottom:12px">
+        请使用<b>支付宝</b>或<b>微信</b>扫描下方二维码<br>
+        支付 <b id="payAmount">¥25.00</b>（<span id="payPlan">月付</span>）
+      </div>
+
+      <div class="row" style="gap:16px;justify-content:center">
+        <div style="text-align:center">
+          <div class="small muted" style="margin-bottom:6px">支付宝</div>
+          <img src="assets/alipay.jpg" alt="支付宝收款码" class="qr-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="small muted" style="display:none;padding:40px;text-align:center">
+            请将支付宝收款码保存为<br><b>assets/alipay.jpg</b>
+          </div>
+        </div>
+        <div style="text-align:center">
+          <div class="small muted" style="margin-bottom:6px">微信</div>
+          <img src="assets/wechat.jpg" alt="微信收款码" class="qr-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="small muted" style="display:none;padding:40px;text-align:center">
+            请将微信收款码保存为<br><b>assets/wechat.jpg</b>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 支付确认 -->
+    <div class="card">
+      <h3>📋 支付后请填写以下信息</h3>
+      <div class="small muted" style="margin:-6px 0 12px">
+        付款后，请将<b>支付截图</b>发送给管理员确认开通
+      </div>
+      <div class="input-zone" style="padding:0">
+        <label class="small" style="font-weight:600">你的用户名/手机号（用于确认身份）</label>
+        <input type="text" id="memberId" placeholder="输入用户名或手机号" style="width:100%;border:1.5px solid var(--line);border-radius:10px;padding:12px;font-size:14px;margin:6px 0 10px;outline:none">
+      </div>
+      <button class="btn primary" onclick="confirmPayment()">📩 我已付款，通知管理员确认</button>
+      <div class="small muted center" style="margin-top:8px">
+        或直接联系：<b>dennes2026@proton.me</b>
+      </div>
+    </div>
+
+    <!-- 会员权益 -->
+    <div class="section-title">会员专属权益</div>
+    <div class="card">
+      <div class="li"><div class="ic">⚔️</div><div class="meta"><b>对抗模式</b><div>让多个AI挑战你的方案</div></div></div>
+      <div class="li"><div class="ic">🔀</div><div class="meta"><b>发散模式</b><div>多模型多视角探索</div></div></div>
+      <div class="li"><div class="ic">📋</div><div class="meta"><b>工作流市场</b><div>资深用户沉淀的实战方法论</div></div></div>
+      <div class="li"><div class="ic">🤝</div><div class="meta"><b>共建社区</b><div>课题合作 · 人才发现</div></div></div>
+      <div class="li"><div class="ic">🔄</div><div class="meta"><b>到期自动提醒</b><div>会员到期前3天通知续费</div></div></div>
+    </div>
+
+    <div class="compliance">支付由管理员手动确认开通 · 3天内不满意可申请退款</div>
+
+  </div>
+
+  <nav class="tabbar">
+    <a href="index.html"><span class="ic">🏠</span>首页</a>
+    <a href="aggregate.html"><span class="ic">💬</span>用AI</a>
+    <a href="advocate.html"><span class="ic">⚔️</span>对抗</a>
+    <a href="diverge.html"><span class="ic">🔀</span>发散</a>
+    <a href="eval.html"><span class="ic">📊</span>评测</a>
+    <a href="collaborate.html"><span class="ic">🤝</span>共建</a>
+  </nav>
+
+</div>
+
+<script>
+var selectedPlan = 'monthly';
+var selectedAmount = 25;
+
+function selectPlan(plan, amount, period, el){
+  selectedPlan = plan;
+  selectedAmount = amount;
+  document.querySelectorAll('.plan-card').forEach(function(c){c.classList.remove('selected')});
+  el.classList.add('selected');
+  document.getElementById('payAmount').textContent = amount;
+  document.getElementById('payPlan').textContent = period==='/月'?'月付':(period==='/季'?'季付':'年付');
+}
+
+function confirmPayment(){
+  var memberId = document.getElementById('memberId').value.trim();
+  if(!memberId){alert('请输入用户名或手机号');return;}
+
+  // 演示：显示确认信息
+  var msg = '已收到你的支付确认请求。\n\n'+
+    '用户名：'+memberId+'\n'+
+    '方案：'+selectedPlan+'\n'+
+    '金额：¥'+selectedAmount+'\n\n'+
+    '管理员将在24小时内确认并开通。\n'+
+    '如有疑问请联系：dennes2026@proton.me';
+
+  alert(msg);
+}
+</script>
+</body>
+</html>

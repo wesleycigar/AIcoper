@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>发散 · 看全景 · AIcoper</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>.scroll{padding:0 14px 110px}</style>
+</head>
+<body>
+<div class="phone">
+
+  <div class="topbar">
+    <a href="index.html" class="back">‹</a>
+    <span class="logo">🔀 发散 · 看全景</span>
+    <span class="sub">同一个问题，N 个 AI 各想各的</span>
+  </div>
+
+  <div class="scroll" id="scroll">
+
+    <!-- 引导小卡 -->
+    <div class="hero" style="background:linear-gradient(135deg,#1A0A2E,#2D1B4E)">
+      <div style="font-size:13px;opacity:.85">⭐ 皇冠明珠二 · 聚合器独有</div>
+      <div style="font-size:20px;font-weight:800;margin:6px 0">普通 AI 给你<b>一个</b>答案<br>AIcoper 让你看到<b>一片</b>可能</div>
+      <div class="small" style="opacity:.85">
+        同一个问题，一键发给多个国产模型，让它们从不同角度发散——
+        我们<b>故意</b>把分歧和意外留给你。<br>
+        不是"选最优"，是"看全景"。<span style="opacity:.7">好想法，常来自意外。</span>
+      </div>
+    </div>
+
+    <!-- 输入区 -->
+    <div class="card">
+      <h3>🔍 抛出一个开放式问题</h3>
+      <div class="small muted" style="margin:-6px 0 8px">越开放的问题，发散出的视角越有惊喜——这正是发散模式擅长的</div>
+      <div class="input-zone" style="padding:0">
+        <textarea id="userQuestion" placeholder="写下一个值得从多个角度想的问题…">养老金融该如何破局？我手头的产品，应该先做哪个市场？</textarea>
+      </div>
+      <button class="btn primary" onclick="runDiverge()" style="margin-top:10px">
+        让 4 个模型发散 →
+      </button>
+      <div class="input-hint">⚡ DeepSeek · 通义千问 · 豆包 · Kimi 同时开想</div>
+    </div>
+
+    <!-- 发散结果区（点击后注入） -->
+    <div id="divergeResult"></div>
+
+    <!-- 演示：默认折叠，提示先点上面的按钮 -->
+    <div id="placeholder" class="card center" style="border:1px dashed var(--line);background:transparent;box-shadow:none">
+      <div class="muted small">👆 点上面的按钮，看 4 个模型怎么把同一个问题，想出 4 个不同的方向</div>
+    </div>
+
+  </div>
+
+  <nav class="tabbar">
+    <a href="index.html"><span class="ic">🏠</span>首页</a>
+    <a href="aggregate.html"><span class="ic">💬</span>用AI</a>
+    <a href="advocate.html"><span class="ic">⚔️</span>对抗</a>
+    <a href="diverge.html" class="on"><span class="ic">🔀</span>发散</a>
+    <a href="eval.html"><span class="ic">📊</span>评测</a>
+    <a href="collaborate.html"><span class="ic">🤝</span>共建</a>
+  </nav>
+
+</div>
+
+<!-- 发散结果模板（隐藏，供脚本克隆） -->
+<template id="divergeTpl">
+
+  <!-- 4 张发散卡：彼此差异最大，故意保留意外 -->
+  <div class="diverge-grid">
+
+    <!-- DeepSeek：技术流 -->
+    <div class="diverge-card">
+      <div class="dc-header">
+        <span class="ac-model-badge ds">DeepSeek</span>
+        <span class="dc-model">技术流</span>
+        <span class="dc-angle-tag">数据·杠杆</span>
+      </div>
+      <div class="dc-body">
+        <b>养老金融的破局点不在产品，在"长寿数据"。</b><br><br>
+        所有养老产品定价都卡在一个变量上——<span class="dc-highlight">人到底能活多久</span>。谁掌握更细颗粒度的健康—寿命数据，谁就能比同行多定价 3–5 年的精度。<br><br>
+        建议绕开"卖保单"的红海，去做<b>底层定价能力</b>：把可穿戴设备、体检、慢病管理数据接进来，给保险公司当"长寿预测引擎"。<br><br>
+        <b>意外结论</b>：你最该抢的客户，可能不是老人，<span class="dc-highlight">是保险公司本身</span>。
+      </div>
+    </div>
+
+    <!-- 通义千问：人文视角 -->
+    <div class="diverge-card">
+      <div class="dc-header">
+        <span class="ac-model-badge qwen">通义千问</span>
+        <span class="dc-model">人文视角</span>
+        <span class="dc-angle-tag">反共识·情感</span>
+      </div>
+      <div class="dc-body">
+        <b>先问一句：老人真的缺"金融产品"吗？</b><br><br>
+        中国老人最大的焦虑往往不是收益率，是<span class="dc-highlight">"我会不会拖累子女"</span>。这是情感问题，不是收益问题。把养老金融做成冷冰冰的理财，注定打不动人。<br><br>
+        破局可能在一个反直觉的地方：<b>把"养老"和"被需要"绑在一起</b>。让老人的钱不只是被保管，而是参与到他还能贡献的事里——隔代教育基金、社区互助账户。<br><br>
+        <b>意外结论</b>：卖产品的人都在算钱，<span class="dc-highlight">真正的缺口是"尊严"</span>。
+      </div>
+    </div>
+
+    <!-- 豆包：激进派 -->
+    <div class="diverge-card">
+      <div class="dc-header">
+        <span class="ac-model-badge doubao">豆包</span>
+        <span class="dc-model">激进派</span>
+        <span class="dc-angle-tag">颠覆·重做</span>
+      </div>
+      <div class="dc-body">
+        <b>别"破局"了，这个局本身就该拆掉重建。</b><br><br>
+        现有养老金融是为"60 岁退休、活到 75 岁"设计的。但 90 后这代人面对的是<span class="dc-highlight">可能活到 100 岁、却没有"退休"这个概念</span>的人生——他们会断续工作到 80 岁。<br><br>
+        所以别优化老产品。去做<b>"分段人生"的现金流工具</b>：35 岁能取一笔去 gap year，55 岁能取一笔去创业，70 岁再开始领养老。<br><br>
+        <b>意外结论</b>：养老金融真正的客户，<span class="dc-highlight">是 30 岁的年轻人</span>，不是老人。
+      </div>
+    </div>
+
+    <!-- Kimi：保守派 -->
+    <div class="diverge-card">
+      <div class="dc-header">
+        <span class="ac-model-badge kimi">Kimi</span>
+        <span class="dc-model">保守派</span>
+        <span class="dc-angle-tag">风险·克制</span>
+      </div>
+      <div class="dc-body">
+        <b>先泼冷水：养老金融最不缺的就是"创新点子"。</b><br><br>
+        过去十年倒下的养老项目，九成不是想法不好，是<span class="dc-highlight">久期错配 + 监管收紧</span>把它们拖死的。钱是 20 年后才付的，但收益要每年兑现，中间任何一次利率下行都可能击穿。<br><br>
+        真正的破局是<b>"少做错事"</b>：把产品设计得足够简单透明，让监管放心、让用户看得懂、让自己活得久。<br><br>
+        <b>意外结论</b>：这个行业的赢家，<span class="dc-highlight">不是跑得最快的，是活得最久的</span>。
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 分歧地图 -->
+  <div class="card" style="border:1px solid var(--line)">
+    <h3>🗺️ 分歧地图</h3>
+    <div class="small muted" style="margin:-6px 0 12px">不是让你挑一个对的，是让你看清思维有几条岔路</div>
+
+    <div style="margin-bottom:10px">
+      <span class="divergence-badge agree">一致 AGREE</span>
+      <div class="small" style="margin-top:4px">4 个模型都同意：<b>不能在旧产品上做微调，必须换问题</b>——只是换的方向各不相同。</div>
+    </div>
+
+    <div style="margin-bottom:10px">
+      <span class="divergence-badge disagree">分歧 DISAGREE</span>
+      <div class="small" style="margin-top:4px">
+        客户到底是谁，吵翻了：<br>
+        · DeepSeek 说是 <b>保险公司</b>（卖数据能力）<br>
+        · 通义说是 <b>怕拖累子女的老人</b>（卖尊严）<br>
+        · 豆包说是 <b>30 岁的年轻人</b>（卖分段人生）
+      </div>
+    </div>
+
+    <div style="margin-bottom:6px">
+      <span class="divergence-badge unique">独一份 UNIQUE</span>
+      <div class="small" style="margin-top:4px">
+        只有 <b>Kimi</b> 没去想"做什么新东西"，而是提醒你<b>久期错配会先把你拖死</b>——一个所有人都漏掉的"活下来"视角。
+      </div>
+    </div>
+  </div>
+
+  <!-- 价值收尾 -->
+  <div class="card center" style="background:var(--brand-lt);border:1px solid var(--brand)">
+    <div class="small" style="color:var(--brand-dk);font-weight:600">
+      💡 价值不在"哪个对"，在于你一次看到了<b>思维的多种可能</b>。<br>
+      <span style="font-size:11px;opacity:.75;font-weight:500">你刚刚收获的那个"意外角度"，单一 AI 永远不会给你</span>
+    </div>
+  </div>
+
+  <div class="card center" style="border:1px dashed var(--brand);background:transparent;box-shadow:none">
+    <div class="small muted">🔀 换个问题再发散一次 · <span style="color:var(--brand-dk);font-weight:600">会员专属 · ¥299/年无限使用</span></div>
+  </div>
+
+</template>
+
+<div class="compliance" id="cmpl" style="display:none">仅聚合国内已备案合规大模型（DeepSeek · 通义千问 · 豆包 · Kimi）· 境内闭环 · 不接入境外模型</div>
+
+<script>
+function runDiverge(){
+  var q = document.getElementById('userQuestion').value.trim();
+  if(!q) return;
+
+  document.getElementById('placeholder').style.display = 'none';
+  var container = document.getElementById('divergeResult');
+  container.innerHTML =
+    '<div class="card center"><div class="small">⚡ 同一个问题，正同时发给 DeepSeek · 通义千问 · 豆包 · Kimi…</div>' +
+    '<div class="bar" style="margin-top:10px"><i style="width:100%"></i></div>' +
+    '<div class="small muted" style="margin-top:8px">让它们各想各的，不互相参考</div></div>';
+
+  setTimeout(function(){
+    var tpl = document.getElementById('divergeTpl').innerHTML;
+    var cmpl = document.getElementById('cmpl').cloneNode(true);
+    cmpl.style.display = 'block';
+    container.innerHTML =
+      '<div class="section-title" style="margin-top:10px">✅ 4 个模型，4 种视角 —— 故意保留分歧</div>' + tpl;
+    container.appendChild(cmpl);
+    document.getElementById('scroll').scrollTop = document.getElementById('divergeResult').offsetTop;
+  }, 1600);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>对抗 · 陪练 · AIcoper</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .scroll{padding:0 14px 110px}
+  @keyframes pulse{0%{opacity:.35}50%{opacity:1}100%{opacity:.35}}
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <div class="topbar">
+    <a href="index.html" class="back">‹</a>
+    <span class="logo">⚔️ 对抗 · 陪练</span>
+    <span class="sub">让多个 AI 来挑你的刺</span>
+  </div>
+
+  <div class="scroll" id="scroll">
+
+    <!-- 引导小卡 -->
+    <div class="hero" style="background:linear-gradient(135deg,#1A1A2E,#16213E)">
+      <div style="font-size:13px;opacity:.85">⭐ 皇冠明珠 · 聚合器独有</div>
+      <div style="font-size:20px;font-weight:800;margin:6px 0">你先写下想法，<br>四个模型轮流挑它的刺</div>
+      <div class="small" style="opacity:.85">
+        你先写下你的想法/方案，AIcoper 调动多个模型从不同角度挑战它——<br>
+        <b>一个总同意你的 AI，不值得拥有。</b>
+      </div>
+    </div>
+
+    <!-- 用户输入区：先写后挑战 -->
+    <div class="card">
+      <h3>📝 第一步：写下你的初稿</h3>
+      <div class="small muted" style="margin:-6px 0 8px">
+        原则 3「先写后挑战」——必须先有你自己的想法，AI 才进入挑战角色。
+        这里没有"从空白一键生成"，那是拐杖，不是放大器。
+      </div>
+      <div class="input-zone" style="padding:0">
+        <textarea id="userIdea" placeholder="写下你的方案 / 论点 / 创业判断…（哪怕很粗糙）">我想做一个"寿险代理人专属的 AI 早报 App"：每天早上自动生成一份保险行业早报推送给代理人，内容围绕销售触发器，代理人转发给客户引流，再沉淀到我们自己的后台做付费教育转化。我判断代理人愿意为"省时间 + 现成话术"付费，获客成本能压到很低。</textarea>
+      </div>
+      <button class="btn primary" onclick="runAdversary()" style="margin-top:10px">
+        让 4 个模型挑战它 →
+      </button>
+      <div class="input-hint">点击后，DeepSeek / 通义 / 豆包 / Kimi 将从四个不同立场反驳你</div>
+    </div>
+
+    <!-- 对抗结果区（点击后注入） -->
+    <div id="adversaryResult"></div>
+
+    <!-- 演示：预填充的四张挑战卡 -->
+    <div class="section-title" style="margin-top:10px">👇 演示：四个模型，四个立场，逐张展开看它怎么挑刺</div>
+
+    <div class="adversary-row" id="demoAdversary">
+
+      <!-- DeepSeek —— 市场视角 -->
+      <div class="adversary-card" onclick="toggleCard(this)">
+        <div class="ac-header">
+          <span class="ac-model-badge ds">DeepSeek</span>
+          <span class="ac-stance">📉 市场视角：你的获客成本假设站不住</span>
+          <span class="ac-expand">展开 ▼</span>
+        </div>
+        <div class="ac-body">
+          <div class="ac-critique">
+            <b>"获客成本能压到很低"是整个商业模型里最脆弱的一句话。</b><br><br>
+            你的链路其实是：先获客一批<b>代理人</b>，再靠代理人转发去获客<b>终端客户</b>。这是两段获客，不是一段。第一段——把代理人从微信群、同行早报里抢过来——一点都不便宜：保险代理人是被各家 MGA、保司、第三方工具反复轰炸的高价值人群，单个有效注册的获客成本通常在两位数到三位数元，留存还差。<br><br>
+            更要命的是<b>第二段几乎不在你控制内</b>：代理人会不会真的转发、转发后客户会不会点、点了会不会沉淀到你后台，每一层都在漏。你把"低获客成本"建立在一个你管不到的转发行为上。<br><br>
+            <b>挑战</b>：请给我一个数字——单个付费代理人的获客成本，和他平均带来的可沉淀客户数。如果你现在答不出来，这个 BP 就还不能拿去见投资人。
+          </div>
+          <div class="ac-score-row">
+            <span>该维度风险：</span>
+            <span class="score-dot red"></span>
+            <span class="score-dot red"></span>
+            <span class="score-dot red"></span>
+            <span class="score-dot amber"></span>
+            <span class="score-dot green"></span>
+            <span>高 · 假设未被验证</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 通义千问 —— 逻辑视角 -->
+      <div class="adversary-card" onclick="toggleCard(this)">
+        <div class="ac-header">
+          <span class="ac-model-badge qwen">通义千问</span>
+          <span class="ac-stance">🧩 逻辑视角：你的两个前提互相矛盾</span>
+          <span class="ac-expand">展开 ▼</span>
+        </div>
+        <div class="ac-body">
+          <div class="ac-critique">
+            <b>你同时要两件互相打架的事：让代理人"愿意转发"，又要"把客户沉淀到你自己后台"。</b><br><br>
+            代理人最怕的就是平台<b>截留他的客户</b>。你越是把客户引到"你们自己的后台做付费教育转化"，代理人就越会意识到——他在帮你养私域、最终客户关系归你不归他。一个稍微聪明的代理人会停止转发，或者干脆把你的内容复制出来用自己的渠道发。<br><br>
+            第二个矛盾：你说卖点是"省时间 + 现成话术"（执行层、便利），但你的变现却押在"付费教育转化"（深度层、成长）。<b>用便利吸引来的人，恰恰是最不愿意为深度教育付费的人</b>——他们要的是更快，不是更强。这两类需求要的是不同的人群。<br><br>
+            <b>挑战</b>：先想清楚客户到底归谁。如果归代理人，你的后台沉淀就是空话；如果归你，代理人就没动力转发。这个二选一，你绕不过去。
+          </div>
+          <div class="ac-score-row">
+            <span>该维度风险：</span>
+            <span class="score-dot red"></span>
+            <span class="score-dot red"></span>
+            <span class="score-dot red"></span>
+            <span class="score-dot red"></span>
+            <span class="score-dot amber"></span>
+            <span>极高 · 内在前提冲突</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 豆包 —— 用户视角 -->
+      <div class="adversary-card" onclick="toggleCard(this)">
+        <div class="ac-header">
+          <span class="ac-model-badge doubao">豆包</span>
+          <span class="ac-stance">🙅 用户视角：目标用户根本不会这样用</span>
+          <span class="ac-expand">展开 ▼</span>
+        </div>
+        <div class="ac-body">
+          <div class="ac-critique">
+            <b>你是站在"产品设计者"的角度想象代理人，不是站在代理人真实的一天里。</b><br><br>
+            真实的寿险代理人早上不缺早报——他的微信里已经躺着保司晨会、团队长群发、几个同行公众号的推送。你的早报对他来说不是"新工具"，是<b>第七条没人看的推送</b>。他真正会转发给客户的，从来不是行业资讯，而是<b>跟这个具体客户的某张保单、某个理赔、某个家庭场景直接相关的东西</b>——通用早报恰恰是他不会转的，因为转了显得不专业、像群发。<br><br>
+            还有一点你忽略了：代理人转发给客户，最怕"内容把客户教育成专家然后开始砍价 / 退保"。你以为是赋能，他可能觉得是<b>给自己埋雷</b>。<br><br>
+            <b>挑战</b>：去问 5 个真实代理人——"你上次主动转发给客户的内容是什么？为什么转它？"我赌没有一个是通用行业早报。
+          </div>
+          <div class="ac-score-row">
+            <span>该维度风险：</span>
+            <span class="score-dot red"></span>
+            <span class="score-dot red"></span>
+            <span class="score-dot red"></span>
+            <span class="score-dot amber"></span>
+            <span class="score-dot green"></span>
+            <span>高 · 真实使用场景存疑</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kimi —— 风险视角 -->
+      <div class="adversary-card" onclick="toggleCard(this)">
+        <div class="ac-header">
+          <span class="ac-model-badge kimi">Kimi</span>
+          <span class="ac-stance">⚠️ 风险视角：这一步踩监管红线</span>
+          <span class="ac-expand">展开 ▼</span>
+        </div>
+        <div class="ac-body">
+          <div class="ac-critique">
+            <b>"AI 自动生成保险内容 → 代理人转发给客户做营销"这条链，监管上是高压区。</b><br><br>
+            一是<b>销售误导</b>：保险营销宣传内容受银保监 / 金融监管总局严格约束，AI 生成的话术若出现收益承诺、夸大保障、贬低同业，责任会追到内容提供方。你做的是"现成话术"，等于把合规风险批量化、规模化了。<br><br>
+            二是<b>资质与数据</b>：面向不特定公众持续推送保险资讯，可能触及保险中介 / 自媒体保险营销宣传的资质要求；沉淀客户到自有后台还涉及个人信息收集，要过《个人信息保护法》的同意与最小必要。<br><br>
+            三是<b>你自己的合规笔记里已经写过</b>：早报类产品要"不线下营销、不碰金融/房产敏感品类、分销不超两级"。你这个方案恰恰正面撞上"碰保险 + 做营销转化"。<br><br>
+            <b>挑战</b>：先回答——内容由谁审？出了销售误导谁担责？没有这两个答案，这不是产品风险，是法律风险。
+          </div>
+          <div class="ac-score-row">
+            <span>该维度风险：</span>
+            <span class="score-dot red"></span>
+            <span class="score-dot red"></span>
+            <span class="score-dot red"></span>
+            <span class="score-dot red"></span>
+            <span class="score-dot red"></span>
+            <span>极高 · 合规红线</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 综合陪练结论 -->
+    <div class="card" style="border:1px solid var(--brand)">
+      <h3>🥊 综合陪练结论</h3>
+      <div class="small muted" style="margin:-6px 0 10px">
+        四个模型从不同立场挑出的<b>共性漏洞</b>，以及你下一步该补强的点。
+        这不是替你重写，是帮你把想法捶打得更硬。
+      </div>
+
+      <div class="section-title">四个模型挑出的共性漏洞</div>
+      <div class="ac-critique" style="margin-bottom:10px">
+        <b>① 客户归属没想清。</b>市场、逻辑、用户三个视角都撞到同一点：你想沉淀客户，但客户在代理人手里，"沉淀"和"愿意转发"天然冲突。<br><br>
+        <b>② 关键数字全是假设。</b>"获客成本很低""代理人愿意付费"都没有任何真实数据支撑，目前更像一个愿望而不是判断。<br><br>
+        <b>③ 合规风险被当成了细节。</b>实际上"AI 生成保险话术 + 营销转化"是这个方案能不能存在的前置门槛，不是上线后再补的合规项。
+      </div>
+
+      <div class="section-title">下一步你该补强的 3 点</div>
+      <div class="ac-critique">
+        <b>1. 先做客户归属的取舍。</b>明确客户归代理人还是归平台，并据此重写商业模型——二选一，别想都要。<br><br>
+        <b>2. 用 5 次真实访谈替换 3 个假设。</b>访谈真实代理人，验证"会不会转发通用早报""愿不愿为话术付费""获客成本量级"，把假设换成证据。<br><br>
+        <b>3. 把合规设计前置进 v0。</b>先定"内容谁审、误导谁担责、是否需要资质、个人信息如何合规收集"，再谈增长。
+      </div>
+    </div>
+
+    <!-- 为什么只有 AIcoper 能做 -->
+    <div class="card" style="text-align:center;background:var(--brand-lt);border:1px solid var(--brand)">
+      <div class="small" style="color:var(--brand-dk);font-weight:600">
+        💡 为什么只有 AIcoper 能做这件事？<br>
+        <span style="font-size:12px;font-weight:500;opacity:.9">
+          单一模型厂商不会让竞品来挑战自己的模型——只有跨厂商的合作社，
+          才能同时调动 DeepSeek、通义、豆包、Kimi 从对立立场围攻你的想法。
+        </span><br>
+        <span style="font-size:11px;opacity:.7;display:inline-block;margin-top:6px">深度层会员专属权益 · ¥299/年无限锤炼</span>
+      </div>
+    </div>
+
+    <div class="compliance">仅聚合国内已备案合规大模型（DeepSeek / 通义 / 豆包 / Kimi / 智谱GLM）· 境内闭环</div>
+  </div>
+
+  <nav class="tabbar">
+    <a href="index.html"><span class="ic">🏠</span>首页</a>
+    <a href="aggregate.html"><span class="ic">💬</span>用AI</a>
+    <a href="advocate.html" class="on"><span class="ic">⚔️</span>对抗</a>
+    <a href="diverge.html"><span class="ic">🔀</span>发散</a>
+    <a href="eval.html"><span class="ic">📊</span>评测</a>
+    <a href="collaborate.html"><span class="ic">🤝</span>共建</a>
+  </nav>
+
+</div>
+
+<script>
+function toggleCard(el){
+  el.classList.toggle('expanded');
+  var ex = el.querySelector('.ac-expand');
+  if(ex) ex.textContent = el.classList.contains('expanded') ? '收起 ▲' : '展开 ▼';
+}
+
+function runAdversary(){
+  var idea = (document.getElementById('userIdea').value || '').trim();
+  var container = document.getElementById('adversaryResult');
+  if(!idea){
+    container.innerHTML = '<div class="card" style="text-align:center;border:1px solid var(--warn)"><div class="small" style="color:#92400E;font-weight:600">先写下你自己的初稿，AI 才会进入挑战角色——这里没有"从空白一键生成"。</div></div>';
+    document.getElementById('userIdea').focus();
+    return;
+  }
+  // 第一步：调度动画
+  container.innerHTML = '<div class="card" style="text-align:center"><div class="small">⚡ AIcoper 正在调度 DeepSeek、通义、豆包、Kimi 从市场 / 逻辑 / 用户 / 风险四个立场挑战你的初稿…</div><div class="bar" style="margin-top:10px"><i style="width:100%;animation:pulse 1.4s infinite"></i></div></div>';
+
+  setTimeout(function(){
+    // 复用 demo 的四张卡，默认展开呈现
+    var demo = document.getElementById('demoAdversary');
+    var out = '<div class="section-title">✅ 四个模型已完成挑战，针对你刚写的初稿</div>';
+    out += '<div class="adversary-row">';
+    demo.querySelectorAll('.adversary-card').forEach(function(c){
+      out += '<div class="adversary-card expanded" onclick="toggleCard(this)">' + c.innerHTML + '</div>';
+    });
+    out += '</div>';
+    container.innerHTML = out;
+    // 同步把内嵌的"展开/收起"文案改成收起态
+    container.querySelectorAll('.ac-expand').forEach(function(e){ e.textContent = '收起 ▲'; });
+    container.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 1600);
+}
+</script>
+</body>
+</html>
